@@ -1,0 +1,217 @@
+/* General Styles */
+:root {
+  --primaryColor: #f75206;
+  --accentColor: #edeef4;
+  --textColor: #6b6f81;
+  --whiteColor: #ffffff;
+}
+body {
+  font-family: "Roboto", sans-serif;
+  font-size: 14px;
+  line-height: 1.42857143;
+  color: #333333;
+  background-color: #f0f0f0;
+  overflow-x: hidden;
+}
+/* Top Navbar Styles */
+#top {
+  background-color: var(--primaryColor);
+  padding: 10px 0;
+}
+#top .offer {
+  color: var(--whiteColor);
+}
+#top .offer .btn {
+  text-transform: uppercase;
+  background-color: var(--whiteColor);
+  border-color: var(--whiteColor);
+  color: var(--primaryColor);
+}
+#top a {
+  color: var(--whiteColor);
+}
+#top ul.menu {
+  padding-top: 5px;
+  margin: 0;
+  text-align: right;
+  font-size: 12px;
+  list-style: none;
+}
+@media (max-width: 991px) {
+  #top {
+    font-size: 12px;
+    text-align: center;
+  }
+  #top .offer {
+    margin-bottom: 10px;
+  }
+  #top ul.menu {
+    text-align: center;
+  }
+}
+@media (max-width: 992px) {
+  .row .offer .btn {
+    font-size: 10.5px;
+  }
+  .row .offer a {
+    font-size: 10.5px;
+  }
+}
+#top ul.menu > li {
+  display: inline-block;
+}
+#top ul.menu > li a {
+  color: var(--whiteColor);
+}
+#top ul.menu > li + li::before {
+  content: "|\00a0";
+  padding: 0 5px;
+  color: var(--whiteColor);
+}
+/* Header Styles */
+.navbar {
+  background-color: white;
+}
+.navbar-collapse .right {
+  float: right;
+}
+.navbar-brand {
+  float: left;
+  padding: 10px 15px;
+  font-size: 18px;
+  line-height: 20px;
+  height: 70px;
+}
+.navbar-brand:hover,
+.navbar-brand:focus {
+  text-decoration: none;
+}
+.navbar ul.navbar-nav > li > a {
+  text-transform: uppercase;
+  font-weight: bold;
+  font-size: 14px;
+}
+.padding-nav {
+  padding-top: 10px;
+}
+.navbar ul.navbar-nav > li > a:hover {
+  background-color: #e7e7e7;
+}
+.btn-primary,
+.btn-primary:hover,
+.btn-primary:checked,
+.btn-primary:visited,
+.btn-primary:focus {
+  color: var(--whiteColor);
+  background-color: var(--primaryColor);
+  border-color: var(--accentColor);
+}
+@media (max-width: 1200px) and (min-width: 992px) {
+  .navbar ul.navbar-nav > li > a {
+    font-size: 12px;
+  }
+  .btn,
+  .form-control {
+    font-size: 12px;
+  }
+  .form-control {
+    max-width: 100px;
+  }
+}
+/* Slider Styles */
+.carousel-inner .carousel-item img {
+  height: 540px;
+}
+/* Advantages */
+.box {
+  background-color: var(--whiteColor);
+  margin: 0 0 30px;
+  border: solid 1px #e6e6e6;
+  box-sizing: border-box;
+  padding: 20px;
+  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
+}
+#advantages {
+  text-align: center;
+}
+#advantages .card {
+  min-height: 170px;
+}
+#advantages .card .icon {
+  position: absolute;
+  font-size: 120px;
+  width: 100%;
+  text-align: center;
+  top: 0;
+  left: 0;
+  height: 100%;
+  float: left;
+  color: #eee;
+  transition: all 0.2s ease-out;
+  z-index: 1;
+  box-sizing: border-box;
+}
+#advantages .card h3 {
+  position: relative;
+  margin: 0 0 20px;
+  font-weight: 300;
+  text-transform: uppercase;
+  z-index: 2;
+}
+#advantages .card h3 a:hover {
+  text-decoration: none;
+}
+#advantages .card p {
+  position: relative;
+  color: #555;
+  z-index: 2;
+}
+/* Products Styles */
+#hot h2 {
+  text-transform: uppercase;
+  font-size: 36px;
+  color: #4993e4;
+  font-weight: 100;
+  text-align: center;
+  padding: 25px 0 15px;
+}
+#content {
+  padding-left: 25px;
+}
+.single {
+  width: 290px;
+}
+@media (max-width: 768px) {
+  .single {
+    width: 60%;
+    margin: 0 auto;
+  }
+}
+#content .product {
+  background-color: #fff;
+  border: solid 1px #e6e6e6;
+  box-sizing: border-box;
+  margin-bottom: 30px;
+}
+#content .product .text p.price {
+  font-size: 18px;
+  text-align: center;
+  font-weight: 300;
+}
+#content .product .text .buttons {
+  clear: both;
+  text-align: center;
+}
+#content .product .text h3 {
+  text-align: center;
+  font-size: 20px;
+}
+#content .product .text h3 a {
+  color: rgb(85, 85, 85);
+}
+#content .product .text {
+  padding: 10px 10px 0;
+}
+#content .product .text .buttons .btn {
+  margin-bottom: 10px;
+}
