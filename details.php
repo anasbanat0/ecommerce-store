@@ -109,7 +109,7 @@
                 </a>
               </div>
             </div>
-            <div></div>
+            <div id="details"></div>
           </div>
         </div>
       </div>
