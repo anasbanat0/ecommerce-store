@@ -68,11 +68,13 @@
 </div>
 <div id="copyright">
   <div class="container">
-    <div class="col-md-6 float-left">
-      <p class="float-left">&copy; 2022 Anas Ali Banat</p>
-    </div>
-    <div class="col-md-6 float-right">
-      <p class="float-right">Template by <a href="https://www.linkedin.com/in/anasali0" target="_blank">Anas Banat</a></p>
+    <div class="row">
+      <div class="col-6 d-flex flex-row">
+        <p>&copy; 2022 Anas Ali Banat</p>
+      </div>
+      <div class="col-6 d-flex flex-row-reverse">
+        <p>Template by <a href="https://www.linkedin.com/in/anasali0" target="_blank">Anas Banat</a></p>
+      </div>
     </div>
   </div>
 </div>
