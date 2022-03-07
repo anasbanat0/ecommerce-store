@@ -11,7 +11,6 @@
         </ul>
       </nav>
     </div>
-    
     <div class="row">
       <div class="col-md-3 mb-5">
         <?php include_once 'includes/sidebar.php'; ?>
