@@ -143,7 +143,6 @@ if (isset($_GET['product_id'])) {
                 </a>
               </div>
             </div>
-            <!-- <div id="details"></div> -->
           </div>
         </div>
         <div class="card px-4 py-3 mb-4" id="details">
