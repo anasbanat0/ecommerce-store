@@ -103,7 +103,7 @@
         <p>&copy; 2022 Anas Ali Banat</p>
       </div>
       <div class="col-6 d-flex flex-row-reverse">
-        <p>Template by <a class="" href="https://www.linkedin.com/in/anasali0" target="_blank">Anas Banat</a></p>
+        <p>Template by <a href="https://www.linkedin.com/in/anasali0" target="_blank">Anas Banat</a></p>
       </div>
     </div>
   </div>
