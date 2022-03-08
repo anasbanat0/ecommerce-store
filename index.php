@@ -1,4 +1,9 @@
-<?php include_once 'includes/header.php'; ?>
+<?php
+$title = "Home Page";
+include 'includes/db.php';
+include 'functions/functions.php';
+include 'includes/header.php';
+?>
 <div class="container mb-5 mt-4" id="slider">
   <div class="col-md-12">
     <div id="myCarousel" class="carousel slide" data-ride="carousel">
@@ -9,18 +14,32 @@
         <li data-target="#myCarousel" data-slide-to="3"></li>
       </ol>
       <div class="carousel-inner">
-        <div class="carousel-item active">
-          <img src="admin_area/slides_images/digitization.jpg" class="d-block w-100" alt="Skoda Car">
-        </div>
-        <div class="carousel-item">
-          <img src="admin_area/slides_images/office.jpg" class="d-block w-100" alt="Skoda Car">
-        </div>
-        <div class="carousel-item">
-          <img src="admin_area/slides_images/business.jpg" class="d-block w-100" alt="Skoda Car">
-        </div>
-        <div class="carousel-item">
-          <img src="admin_area/slides_images/binary.jpg" class="d-block w-100" alt="Skoda Car">
-        </div>
+        <?php
+        $get_slides = "select * from slider LIMIT 0,1";
+        $run_slides = mysqli_query($conn, $get_slides);
+        while ($row_slides = mysqli_fetch_array($run_slides)) {
+          $slide_name = $row_slides['slide_name'];
+          $slide_image = $row_slides['slide_image'];
+          echo "
+            <div class='carousel-item active'>
+            <img src='admin_area/slides_images/$slide_image' class='d-block w-100' alt='$slide_name'>
+            </div>
+            ";
+        }
+        ?>
+        <?php
+        $get_slides = "select * from slider LIMIT 1,3 ";
+        $run_slides = mysqli_query($conn, $get_slides);
+        while ($row_slides = mysqli_fetch_array($run_slides)) {
+          $slide_name = $row_slides['slide_name'];
+          $slide_image = $row_slides['slide_image'];
+          echo "
+            <div class='carousel-item'>
+            <img src='admin_area/slides_images/$slide_image' class='d-block w-100' alt='$slide_name'>
+            </div>
+            ";
+        }
+        ?>
       </div>
       <button class="carousel-control-prev" type="button" data-target="#myCarousel" data-slide="prev">
         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -83,108 +102,9 @@
 </div>
 <div id="content" class="container">
   <div class="row">
-    <div class="col-sm-4 single">
-      <div class="product">
-        <a href="details.php">
-          <img src="admin_area/product_images/05.jpg" class="w-100 img-thumbnail" alt="T-Shirt Product">
-        </a>
-        <div class="text">
-          <h3><a href="details.php">Marvel Black Kids POLO T-Shirt</a></h3>
-          <p class="price">$50</p>
-          <p class="buttons">
-            <a href="details.php" class="btn btn-secondary">View Details</a>
-            <a href="details.php" class="btn btn-primary">
-              <i class="fa fa-shopping-cart"></i> Add to cart
-            </a>
-          </p>
-        </div>
-      </div>
-    </div>
-    <div class="col-sm-4 single">
-      <div class="product">
-        <a href="details.php">
-          <img src="admin_area/product_images/05.jpg" class="w-100 img-thumbnail" alt="T-Shirt Product">
-        </a>
-        <div class="text">
-          <h3><a href="details.php">Marvel Black Kids POLO T-Shirt</a></h3>
-          <p class="price">$50</p>
-          <p class="buttons">
-            <a href="details.php" class="btn btn-secondary">View Details</a>
-            <a href="details.php" class="btn btn-primary">
-              <i class="fa fa-shopping-cart"></i> Add to cart
-            </a>
-          </p>
-        </div>
-      </div>
-    </div>
-    <div class="col-sm-4 single">
-      <div class="product">
-        <a href="details.php">
-          <img src="admin_area/product_images/05.jpg" class="w-100 img-thumbnail" alt="T-Shirt Product">
-        </a>
-        <div class="text">
-          <h3><a href="details.php">Marvel Black Kids POLO T-Shirt</a></h3>
-          <p class="price">$50</p>
-          <p class="buttons">
-            <a href="details.php" class="btn btn-secondary">View Details</a>
-            <a href="details.php" class="btn btn-primary">
-              <i class="fa fa-shopping-cart"></i> Add to cart
-            </a>
-          </p>
-        </div>
-      </div>
-    </div>
-    <div class="col-sm-4 single">
-      <div class="product">
-        <a href="details.php">
-          <img src="admin_area/product_images/05.jpg" class="w-100 img-thumbnail" alt="T-Shirt Product">
-        </a>
-        <div class="text">
-          <h3><a href="details.php">Marvel Black Kids POLO T-Shirt</a></h3>
-          <p class="price">$50</p>
-          <p class="buttons">
-            <a href="details.php" class="btn btn-secondary">View Details</a>
-            <a href="details.php" class="btn btn-primary">
-              <i class="fa fa-shopping-cart"></i> Add to cart
-            </a>
-          </p>
-        </div>
-      </div>
-    </div>
-    <div class="col-sm-4 single">
-      <div class="product">
-        <a href="details.php">
-          <img src="admin_area/product_images/05.jpg" class="w-100 img-thumbnail" alt="T-Shirt Product">
-        </a>
-        <div class="text">
-          <h3><a href="details.php">Marvel Black Kids POLO T-Shirt</a></h3>
-          <p class="price">$50</p>
-          <p class="buttons">
-            <a href="details.php" class="btn btn-secondary">View Details</a>
-            <a href="details.php" class="btn btn-primary">
-              <i class="fa fa-shopping-cart"></i> Add to cart
-            </a>
-          </p>
-        </div>
-      </div>
-    </div>
-    <div class="col-sm-4 single">
-      <div class="product">
-        <a href="details.php">
-          <img src="admin_area/product_images/05.jpg" class="w-100 img-thumbnail" alt="T-Shirt Product">
-        </a>
-        <div class="text">
-          <h3><a href="details.php">Marvel Black Kids POLO T-Shirt</a></h3>
-          <p class="price">$50</p>
-          <p class="buttons">
-            <a href="details.php" class="btn btn-secondary">View Details</a>
-            <a href="details.php" class="btn btn-primary">
-              <i class="fa fa-shopping-cart"></i> Add to cart
-            </a>
-          </p>
-        </div>
-      </div>
-    </div>
+    <?php
+    getPro();
+    ?>
   </div>
 </div>
-<?php include_once 'includes/footer.php'; ?>
+<?php include 'includes/footer.php'; ?>

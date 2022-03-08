@@ -4,15 +4,15 @@
       <div class="col-md-3 col-sm-6">
         <h4>Pages</h4>
         <ul>
-          <li><a href="cart.php">Shopping Cart</a></li>
-          <li><a href="contact.php">Contact Us</a></li>
-          <li><a href="shop.php">Shop</a></li>
+          <li><a href="../cart.php">Shopping Cart</a></li>
+          <li><a href="../contact.php">Contact Us</a></li>
+          <li><a href="../shop.php">Shop</a></li>
           <li>
             <?php
             if (!isset($_SESSION['customer_email'])) {
-              echo "<a href='checkout.php'>My Account</a>";
+              echo "<a href='../checkout.php'>My Account</a>";
             } else {
-              echo "<a href='customer/account.php?my_orders'>My Account</a>";
+              echo "<a href='account.php?my_orders'>My Account</a>";
             }
             ?>
           </li>
@@ -23,18 +23,18 @@
           <li>
             <?php
             if (!isset($_SESSION['customer_email'])) {
-              echo "<a href='checkout.php'>Login</a>";
+              echo "<a href='../checkout.php'>Login</a>";
             } else {
-              echo "<a href='customer/account.php?my_orders'>My Account</a>";
+              echo "<a href='account.php?my_orders'>My Account</a>";
             }
             ?>
           </li>
           <li>
             <?php
             if (!isset($_SESSION['customer_email'])) {
-              echo "<a href='customer_register.php'>Register</a>";
+              echo "<a href='../customer_register.php'>Register</a>";
             } else {
-              echo "<a href='shop.php'>Shop</a>";
+              echo "<a href='../shop.php'>Shop</a>";
             }
             ?>
           </li>
@@ -50,7 +50,7 @@
           while ($row_p_cats = mysqli_fetch_array($run_p_cats)) {
             $p_cat_id = $row_p_cats['p_cat_id'];
             $p_cat_title = $row_p_cats['p_cat_title'];
-            echo "<li><a href='shop.php?product_category=$p_cat_id'>$p_cat_title</a></li>";
+            echo "<li><a href='../shop.php?product_category=$p_cat_id'>$p_cat_title</a></li>";
           }
           ?>
         </ul>
@@ -108,9 +108,7 @@
     </div>
   </div>
 </div>
-<script src="js/jquery.min.js"></script>
-<script src="js/bootstrap.min.js"></script>
-<script src="js/script.js"></script>
+<script src="../js/jquery.min.js"></script>
 </body>
 
 </html>
