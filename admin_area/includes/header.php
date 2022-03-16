@@ -14,7 +14,6 @@
       selector: '#mytextarea'
     });
   </script>
-  <link rel="stylesheet" href="../css/style.css">
   <link rel="stylesheet" href="css/main.css">
 </head>
 

@@ -121,11 +121,6 @@ ul {
     max-width: 100px;
   }
 }
-/* Slider Styles */
-#slider .carousel-inner .carousel-item img {
-  height: 540px;
-}
-
 /* Advantages */
 .box {
   background-color: var(--whiteColor);
@@ -391,7 +386,7 @@ ul {
 #copyright {
   background-color: #333;
   color: #ccc;
-  padding: 20px 0 40px;
+  padding: 20px 0;
   font-size: 12px;
 }
 #copyright p {

@@ -4,7 +4,7 @@ include 'includes/db.php';
 include 'functions/functions.php';
 include 'includes/header.php';
 ?>
-<div class="container mb-5 mt-4" id="slider">
+<div class="container mb-4 mt-4" id="slider">
   <div class="col-md-12">
     <div id="myCarousel" class="carousel slide" data-ride="carousel">
       <ol class="carousel-indicators">
@@ -20,9 +20,12 @@ include 'includes/header.php';
         while ($row_slides = mysqli_fetch_array($run_slides)) {
           $slide_name = $row_slides['slide_name'];
           $slide_image = $row_slides['slide_image'];
+          $slide_url = $row_slides['slide_url'];
           echo "
             <div class='carousel-item active'>
-            <img src='admin_area/slides_images/$slide_image' class='d-block w-100' alt='$slide_name'>
+              <a href='$slide_url' target='_blank'>
+                <img src='admin_area/slides_images/$slide_image' class='d-block w-100' alt='$slide_name'>
+              </a>
             </div>
             ";
         }
@@ -33,9 +36,12 @@ include 'includes/header.php';
         while ($row_slides = mysqli_fetch_array($run_slides)) {
           $slide_name = $row_slides['slide_name'];
           $slide_image = $row_slides['slide_image'];
+          $slide_url = $row_slides['slide_url'];
           echo "
             <div class='carousel-item'>
-            <img src='admin_area/slides_images/$slide_image' class='d-block w-100' alt='$slide_name'>
+              <a href='$slide_url' target='_blank'>
+                <img src='admin_area/slides_images/$slide_image' class='d-block w-100' alt='$slide_name'>
+              </a>
             </div>
             ";
         }
@@ -52,7 +58,7 @@ include 'includes/header.php';
     </div>
   </div>
 </div>
-<div id="advantages" class="mb-5">
+<div id="advantages" class="mb-4">
   <div class="container">
     <div class="row">
       <div class="col-sm-4">
@@ -91,7 +97,7 @@ include 'includes/header.php';
     </div>
   </div>
 </div>
-<div id="hot" class="mb-5">
+<div id="hot" class="mb-4">
   <div class="card">
     <div class="container">
       <div class="col-md-12">
