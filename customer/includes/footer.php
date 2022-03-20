@@ -38,6 +38,9 @@
             }
             ?>
           </li>
+          <li>
+            <a href="../terms.php">Terms And Conditions</a>
+          </li>
         </ul>
         <hr class="d-block d-sm-none">
       </div>

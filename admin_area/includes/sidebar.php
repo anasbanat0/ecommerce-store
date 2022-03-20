@@ -98,6 +98,20 @@ if (!isset($_SESSION['admin_email'])) {
           </ul>
         </li>
         <li class="nav-item">
+          <a href="#" class="nav-link" data-toggle="collapse" data-target="#boxes">
+            <i class="fas fa-arrows-alt"></i> Boxes Section
+            <i class="fa fa-caret-down"></i>
+          </a>
+          <ul id="boxes" class="collapse">
+            <li>
+              <a href="index.php?insert_box">Insert Box</a>
+            </li>
+            <li>
+              <a href="index.php?view_boxes">View Boxes</a>
+            </li>
+          </ul>
+        </li>
+        <li class="nav-item">
           <a class="nav-link" href="#" data-toggle="collapse" data-target="#slides">
             <i class="fas fa-cogs"></i> Slides
             <i class="fa fa-caret-down"></i>
@@ -115,6 +129,27 @@ if (!isset($_SESSION['admin_email'])) {
             </li>
           </ul>
         </li>
+        <li class="nav-item">
+          <a href="#" class="nav-link" data-toggle="collapse" data-target="#terms">
+            <i class="fas fa-fist-raised"></i> Terms
+            <i class="fa fa-caret-down"></i>
+          </a>
+          <ul id="terms" class="collapse">
+            <li>
+              <a href="index.php?insert_term">
+                Insert Term
+              </a>
+            </li>
+            <li>
+              <a href="index.php?view_terms">
+                View Terms
+              </a>
+            </li>
+          </ul>
+        </li>
+        <div class="nav-item">
+          <a href="#" class="nav-link" data-toggle="collapse" data-target=""></a>
+        </div>
         <li class="nav-item">
           <a href="index.php?view_customers" class="nav-link">
             <i class="fas fa-edit"></i> View Customers

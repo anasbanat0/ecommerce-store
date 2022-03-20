@@ -96,6 +96,22 @@ if (!isset($_SESSION['admin_email'])) {
           include 'user_delete.php';
         } elseif (isset($_GET['user_profile'])) {
           include 'user_profile.php';
+        } elseif (isset($_GET['insert_box'])) {
+          include 'insert_box.php';
+        } elseif (isset($_GET['view_boxes'])) {
+          include 'view_boxes.php';
+        } elseif (isset($_GET['delete_box'])) {
+          include 'delete_box.php';
+        } elseif (isset($_GET['edit_box'])) {
+          include 'edit_box.php';
+        } elseif (isset($_GET['insert_term'])) {
+          include 'insert_term.php';
+        } elseif (isset($_GET['view_terms'])) {
+          include 'view_terms.php';
+        } elseif (isset($_GET['delete_term'])) {
+          include 'delete_term.php';
+        } elseif (isset($_GET['edit_term'])) {
+          include 'edit_term.php';
         }
         ?>
       </div>
