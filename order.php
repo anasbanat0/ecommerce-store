@@ -29,3 +29,7 @@ while ($row_cart = mysqli_fetch_array($run_cart)) {
     echo "<script>window.open('customer/account.php?my_orders','_self')</script>";
   }
 }
+
+
+
+
