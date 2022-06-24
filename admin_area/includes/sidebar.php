@@ -62,6 +62,20 @@ if (!isset($_SESSION['admin_email'])) {
           </ul>
         </li>
         <li class="nav-item">
+          <a href="#" class="nav-link" data-toggle="collapse" data-target="#manufacturers">
+            <i class="fas fa-briefcase fa-fw"></i> Manufacturers
+            <i class="fa fa-caret-down"></i>
+          </a>
+          <ul id="manufacturers" class="collapse">
+            <li>
+              <a href="index.php?insert_manufacturer"> Insert Manufacturer</a>
+            </li>
+            <li>
+              <a href="index.php?view_manufacturers"> View Manufacturers</a>
+            </li>
+          </ul>
+        </li>
+        <li class="nav-item">
           <a class="nav-link" href="#" data-toggle="collapse" data-target="#p_cat">
             <i class="fas fa-pencil-alt"></i> Products Categories
             <i class="fa fa-caret-down"></i>
@@ -148,7 +162,9 @@ if (!isset($_SESSION['admin_email'])) {
           </ul>
         </li>
         <div class="nav-item">
-          <a href="#" class="nav-link" data-toggle="collapse" data-target=""></a>
+          <a href="index.php?edit_css" class="nav-link">
+            <i class="fas fa-file-code"></i> Edit Css File
+          </a>
         </div>
         <li class="nav-item">
           <a href="index.php?view_customers" class="nav-link">

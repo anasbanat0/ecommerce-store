@@ -11,7 +11,8 @@ if (!isset($_SESSION['admin_email'])) {
     $row_edit = mysqli_fetch_array($run_edit);
     $p_cat_id = $row_edit['p_cat_id'];
     $p_cat_title = $row_edit['p_cat_title'];
-    $p_cat_desc = $row_edit['p_cat_desc'];
+    $p_cat_top = $row_edit['p_cat_top'];
+    $p_cat_image = $row_edit['p_cat_image'];
   }
   ?>
   <div class="row mt-4">
@@ -35,7 +36,7 @@ if (!isset($_SESSION['admin_email'])) {
           </h5>
         </div>
         <div class="card-body">
-          <form action="" method="post">
+          <form action="" method="post" enctype="multipart/form-data">
             <div class="form-group form-row">
               <label for="" class="col-form-label col-md-3 text-right">Product Category Title</label>
               <div class="col-md-6">
@@ -43,9 +44,25 @@ if (!isset($_SESSION['admin_email'])) {
               </div>
             </div>
             <div class="form-group form-row">
-              <label for="" class="col-form-label col-md-3 text-right">Product Category Description</label>
+              <label for="" class="col-form-label col-md-3 text-right">Show as Top Product Category</label>
+              <div class="col-md-6 mt-2">
+                <input type="radio" name="p_cat_top" value="yes" <?php if ($p_cat_top == 'no') {
+                                                                  } else {
+                                                                    echo "checked='checked'";
+                                                                  } ?>>
+                <label>Yes</label>
+                <input type="radio" name="p_cat_top" value="no" <?php if ($p_cat_top == 'no') {
+                                                                  echo "checked='checked'";
+                                                                } else {
+                                                                } ?>>
+                <label>No</label>
+              </div>
+            </div>
+            <div class="form-group form-row">
+              <label for="" class="col-form-label col-md-3 text-right">Product Category Image</label>
               <div class="col-md-6">
-                <textarea name="p_cat_desc" id="mytextarea" cols="30" rows="10" required class="form-control"><?= $p_cat_desc ?></textarea>
+                <input type="file" name="p_cat_image" class="form-control">
+                <img src="other_images/<?= $p_cat_image ?>" alt="<?= $p_cat_title ?>" width="70" class="img-thumbnail mt-1">
               </div>
             </div>
             <div class="form-group form-row">
@@ -62,8 +79,11 @@ if (!isset($_SESSION['admin_email'])) {
   <?php
   if (isset($_POST['update'])) {
     $p_cat_title = $_POST['p_cat_title'];
-    $p_cat_desc = $_POST['p_cat_desc'];
-    $update_p_cat = "UPDATE product_categories SET p_cat_title='$p_cat_title', p_cat_desc='$p_cat_desc' WHERE p_cat_id='$p_cat_id'";
+    $p_cat_top = $_POST['p_cat_top'];
+    $p_cat_image = $_FILES['p_cat_image']['name'];
+    $temp_name = $_FILES['p_cat_image']['tmp_name'];
+    move_uploaded_file($temp_name, "other_images/$p_cat_image");
+    $update_p_cat = "UPDATE `product_categories` SET `p_cat_title`='$p_cat_title', `p_cat_top`='$p_cat_top', `p_cat_image`='$p_cat_image' WHERE `p_cat_id`='$p_cat_id'";
     $run_p_cat = mysqli_query($conn, $update_p_cat);
     if ($run_p_cat) {
       echo "<script>alert('Product category has been updated')</script>";

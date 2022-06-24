@@ -48,23 +48,24 @@ function items()
   echo $count_items;
 }
 
-function total_price() {
+function total_price()
+{
   global $db;
   $ip_add = getRealUserIp();
   $total = 0;
   $select_cart = "select * from cart where ip_add='$ip_add'";
   $run_cart = mysqli_query($db, $select_cart);
-  while($record = mysqli_fetch_array($run_cart)) {
+  while ($record = mysqli_fetch_array($run_cart)) {
     $pro_id = $record['p_id'];
     $pro_qty = $record['qty'];
     $get_price = "select * from products where product_id='$pro_id'";
     $run_price = mysqli_query($db, $get_price);
-    while($row_price = mysqli_fetch_array($run_price)) {
-      $sub_total = $row_price['product_price']*$pro_qty;
+    while ($row_price = mysqli_fetch_array($run_price)) {
+      $sub_total = $row_price['product_price'] * $pro_qty;
       $total += $sub_total;
     }
   }
-  echo "$".$total;
+  echo "$" . $total;
 }
 
 function getPro()
@@ -99,77 +100,64 @@ function getPro()
   }
 }
 
-function getPCats()
+// getProducts Function Start
+function getProducts()
 {
   global $db;
-  $get_p_cats = "select * from product_categories";
-  $run_p_cats = mysqli_query($db, $get_p_cats);
-  while ($row_p_cats = mysqli_fetch_array($run_p_cats)) {
-    $p_cat_id = $row_p_cats['p_cat_id'];
-    $p_cat_title = $row_p_cats['p_cat_title'];
-    echo "<li class='nav-item'><a class='nav-link' href='shop.php?product_category=$p_cat_id'>$p_cat_title</a></li>";
-  }
-}
-function getCats()
-{
-  global $db;
-  $get_cats = "select * from categories";
-  $run_cats = mysqli_query($db, $get_cats);
-  while ($row_cats = mysqli_fetch_array($run_cats)) {
-    $cat_id = $row_cats['cat_id'];
-    $cat_title = $row_cats['cat_title'];
-    echo "<li class='nav-item'><a class='nav-link' href='shop.php?category_id=$cat_id'>$cat_title</a></li>";
-  }
-}
-
-function getpcatpro()
-{
-  global $db;
-  if (isset($_GET['product_category'])) {
-    $p_cat_id = $_GET['product_category'];
-    $get_p_cat = "select * from product_categories where p_cat_id='$p_cat_id'";
-    $run_p_cat = mysqli_query($db, $get_p_cat);
-    $row_p_cat = mysqli_fetch_array($run_p_cat);
-    $p_cat_title = $row_p_cat['p_cat_title'];
-    $p_cat_desc = $row_p_cat['p_cat_desc'];
-    $get_products = "select * from products where p_cat_id='$p_cat_id'";
-    $run_products = mysqli_query($db, $get_products);
-    $count = mysqli_num_rows($run_products);
-    if ($count == 0) {
-      echo "
-      <div class='card mb-4'>
-        <div class='card-header'>
-          <h2>No Products Found In This Product Category</h2>
-        </div>
-      </div>
-      ";
-    } else {
-      echo "
-      <div class='card mb-4'>
-        <div class='card-header'>
-          <h2>$p_cat_title</h2>
-        </div>
-        <div class='card-body'>
-          <p>$p_cat_desc</p>
-        </div>
-      </div>
-      ";
+  $aWhere = array();
+  /// Manufacturers Code Starts ///
+  if (isset($_REQUEST['man']) && is_array($_REQUEST['man'])) {
+    foreach ($_REQUEST['man'] as $sKey => $sVal) {
+      if ((int)$sVal != 0) {
+        $aWhere[] = 'manufacturer_id=' . (int)$sVal;
+      }
     }
-    echo "<div class='row'>";
-    while ($row_products = mysqli_fetch_array($run_products)) {
-      $pro_id = $row_products['product_id'];
-      $pro_title = $row_products['product_title'];
-      $pro_price = $row_products['product_price'];
-      $pro_img1 = $row_products['product_img1'];
-      echo "
-      <div class='col-md-4 col-sm-6 d-inline-flex center-responsive'>
-        <div class='product'>
-          <a href='details.php?product_id=$pro_id'>
-            <img src='admin_area/product_images/$pro_img1' class='img-fluid' alt='$pro_title'>
+  }
+  /// Manufacturers Code Ends ///
+  /// Products Categories Code Starts ///
+  if (isset($_REQUEST['p_cat']) && is_array($_REQUEST['p_cat'])) {
+    foreach ($_REQUEST['p_cat'] as $sKey => $sVal) {
+      if ((int)$sVal != 0) {
+        $aWhere[] = 'p_cat_id=' . (int)$sVal;
+      }
+    }
+  }
+  /// Products Categories Code Ends ///
+  /// Categories Code Starts ///
+  if (isset($_REQUEST['cat']) && is_array($_REQUEST['cat'])) {
+    foreach ($_REQUEST['cat'] as $sKey => $sVal) {
+      if ((int)$sVal != 0) {
+        $aWhere[] = 'cat_id=' . (int)$sVal;
+      }
+    }
+  }
+  /// Categories Code Ends ///
+  $per_page = 6;
+  if (isset($_GET['page'])) {
+    $page = $_GET['page'];
+  } else {
+    $page = 1;
+  }
+  $start_from = ($page - 1) * $per_page;
+  $sLimit = " order by 1 DESC LIMIT $start_from,$per_page";
+  $sWhere = (count($aWhere) > 0 ? ' WHERE ' . implode(' or ', $aWhere) : '') . $sLimit;
+  $get_products = "select * from products  " . $sWhere;
+  $run_products = mysqli_query($db, $get_products);
+  echo "<div class='row'>";
+  while ($row_products = mysqli_fetch_array($run_products)) {
+    $pro_id = $row_products['product_id'];
+    $pro_title = $row_products['product_title'];
+    $pro_price = $row_products['product_price'];
+    $pro_img1 = $row_products['product_img1'];
+    echo "
+      <div class='col-md-4 col-sm-6 d-inline-flex center-responsive' >
+        <div class='product' >
+          <a href='details.php?pro_id=$pro_id' >
+            <img src='admin_area/product_images/$pro_img1' class='img-fluid' alt='$pro_title' >
           </a>
-          <div class='text'>
+          <div class='text' >
             <h3><a href='details.php?product_id=$pro_id'>$pro_title</a></h3>
-            <p class='price'>$$pro_price</p>
+            <p class='price' > $$pro_price </p>
             <p class='buttons row'>
               <a href='details.php?product_id=$pro_id' class='btn btn-secondary'>View details</a>
               <a href='details.php?product_id=$pro_id' class='btn btn-primary'>
@@ -179,73 +167,67 @@ function getpcatpro()
           </div>
         </div>
       </div>
-      ";
-    }
-    echo "</div>";
+    ";
   }
+  echo "</div>";
 }
+// getProducts Function End
 
-function getcatpro()
+
+// getPaginator Function Start
+function getPaginator()
 {
+  $per_page = 6;
   global $db;
-  if (isset($_GET['category_id'])) {
-    $cat_id = $_GET['category_id'];
-    $get_cat = "select * from categories where cat_id='$cat_id'";
-    $run_cat = mysqli_query($db, $get_cat);
-    $row_cat = mysqli_fetch_array($run_cat);
-    $cat_title = $row_cat['cat_title'];
-    $cat_desc = $row_cat['cat_desc'];
-    $get_products = "select * from products where cat_id='$cat_id'";
-    $run_products = mysqli_query($db, $get_products);
-    $count = mysqli_num_rows($run_products);
-    if ($count == 0) {
-      echo
-      "
-      <div class='card mb-4'>
-        <div class='card-header'>
-          <h2>No Products Found In This Category</h2>
-        </div>
-      </div>
-      ";
-    } else {
-      echo "
-      <div class='card mb-4'>
-        <div class='card-header'>
-          <h2>$cat_title</h2>
-        </div>
-        <div class='card-body'>
-          <p>$cat_desc</p>
-        </div>
-      </div>
-      ";
+  $aWhere = array();
+  $aPath = '';
+  /// Manufacturers Code Starts ///
+  if (isset($_REQUEST['man']) && is_array($_REQUEST['man'])) {
+    foreach ($_REQUEST['man'] as $sKey => $sVal) {
+      if ((int)$sVal != 0) {
+        $aWhere[] = 'manufacturer_id=' . (int)$sVal;
+        $aPath .= 'man[]=' . (int)$sVal . '&';
+      }
     }
-    echo "<div class='row'>";
-    while ($row_products = mysqli_fetch_array($run_products)) {
-      $pro_id = $row_products['product_id'];
-      $pro_title = $row_products['product_title'];
-      $pro_price = $row_products['product_price'];
-      $pro_desc = $row_products['product_desc'];
-      $pro_img1 = $row_products['product_img1'];
-      echo "
-      <div class='col-md-4 col-sm-6 d-inline-flex center-responsive'>
-        <div class='product'>
-          <a href='details.php?product_id=$pro_id'>
-            <img src='admin_area/product_images/$pro_img1' class='img-fluid' alt='$pro_title'>
-          </a>
-          <div class='text'>
-            <h3><a href='details.php?product_id=$pro_id'>$pro_title</a></h3>
-            <p class='price'>$$pro_price</p>
-            <p class='buttons row'>
-              <a href='details.php?product_id=$pro_id' class='btn btn-secondary'>View details</a>
-              <a href='details.php?product_id=$pro_id' class='btn btn-primary'>
-                <i class='fa fa-shopping-cart'></i> Add to Cart
-              </a>
-            </p>
-          </div>
-        </div>
-      </div>
-      ";
-    }
-    echo "</div>";
   }
+  /// Manufacturers Code Ends ///
+  /// Products Categories Code Starts ///
+  if (isset($_REQUEST['p_cat']) && is_array($_REQUEST['p_cat'])) {
+    foreach ($_REQUEST['p_cat'] as $sKey => $sVal) {
+      if ((int)$sVal != 0) {
+        $aWhere[] = 'p_cat_id=' . (int)$sVal;
+        $aPath .= 'p_cat[]=' . (int)$sVal . '&';
+      }
+    }
+  }
+  /// Products Categories Code Ends ///
+  /// Categories Code Starts ///
+  if (isset($_REQUEST['cat']) && is_array($_REQUEST['cat'])) {
+    foreach ($_REQUEST['cat'] as $sKey => $sVal) {
+      if ((int)$sVal != 0) {
+        $aWhere[] = 'cat_id=' . (int)$sVal;
+        $aPath .= 'cat[]=' . (int)$sVal . '&';
+      }
+    }
+  }
+  /// Categories Code Ends ///
+  $sWhere = (count($aWhere) > 0 ? ' WHERE ' . implode(' or ', $aWhere) : '');
+  $query = "select * from products " . $sWhere;
+  $result = mysqli_query($db, $query);
+  $total_records = mysqli_num_rows($result);
+  $total_pages = ceil($total_records / $per_page);
+  echo "<li class='page-item'><a class='page-link' href='shop.php?page=1";
+  if (!empty($aPath)) {
+    echo "&" . $aPath;
+  }
+  echo "' >" . 'First Page' . "</a></li>";
+  for ($i = 1; $i <= $total_pages; $i++) {
+    echo "<li class='page-item'><a class='page-link' href='shop.php?page=" . $i . (!empty($aPath) ? '&' . $aPath : '') . "' >" . $i . "</a></li>";
+  };
+  echo "<li class='page-item'><a class='page-link' href='shop.php?page=$total_pages";
+  if (!empty($aPath)) {
+    echo "&" . $aPath;
+  }
+  echo "' >" . 'Last Page' . "</a></li>";
 }
+// getPaginator Function End

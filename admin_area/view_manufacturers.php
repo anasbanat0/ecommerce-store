@@ -1,16 +1,15 @@
 <?php
 if (!isset($_SESSION['admin_email'])) {
-  echo "<script>
-  window.open('login.php', '_self')
-</script>";
+  echo "<script>window.open('login.php','_self')</script>";
 } else {
 ?>
+
   <div class="row mt-4">
     <div class="col-lg-12">
       <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
           <li class="breadcrumb-item active" aria-current="page">
-            <i class="fas fa-tachometer-alt"></i> Dashboard / View Products Categories
+            <i class="fas fa-tachometer-alt"></i> Dashboard / View Manufacturers
           </li>
         </ol>
       </nav>
@@ -21,40 +20,40 @@ if (!isset($_SESSION['admin_email'])) {
       <div class="card">
         <div class="card-header pb-0 pt-2">
           <h4 class="card-title">
-            <i class="fas fa-money-bill"></i> View Products Categories
+            <i class="fas fa-money-bill"></i> View Manufacturers
           </h4>
         </div>
         <div class="card-body">
           <div class="table-responsive">
             <table class="table table-bordered table-hover table-striped">
               <thead>
-                <tr>
-                  <th>Product Category Id</th>
-                  <th>Product Category Title</th>
-                  <th>Delete Product Category</th>
-                  <th>Edit Product Category</th>
+                <tr class="text-center">
+                  <th>Manufacturer ID</th>
+                  <th>Manufacturer Title</th>
+                  <th>Delete Manufacturer</th>
+                  <th>Edit Manufacturer</th>
                 </tr>
               </thead>
               <tbody>
                 <?php
                 $i = 0;
-                $get_p_cats = "SELECT * FROM product_categories";
-                $run_p_cats = mysqli_query($conn, $get_p_cats);
-                while ($row_p_cats = mysqli_fetch_array($run_p_cats)) {
-                  $p_cat_id = $row_p_cats['p_cat_id'];
-                  $p_cat_title = $row_p_cats['p_cat_title'];
+                $get_manufacturers = "SELECT * FROM `manufacturers`";
+                $run_manufacturers = mysqli_query($conn, $get_manufacturers);
+                while ($row_manufacturers = mysqli_fetch_array($run_manufacturers)) {
+                  $manufacturer_id = $row_manufacturers['manufacturer_id'];
+                  $manufacturer_title = $row_manufacturers['manufacturer_title'];
                   $i++;
                 ?>
                   <tr>
                     <th>#<?= $i ?></th>
-                    <td><?= $p_cat_title ?></td>
+                    <td><?= $manufacturer_title ?></td>
                     <td class="text-center">
-                      <a class="btn btn-danger" href="index.php?delete_p_cat=<?= $p_cat_id ?>">
+                      <a class="btn btn-danger" href="index.php?delete_manufacturer=<?= $manufacturer_id ?>">
                         <i class="fas fa-trash-alt"></i> Delete
                       </a>
                     </td>
                     <td class="text-center">
-                      <a class="btn btn-primary" href="index.php?edit_p_cat=<?= $p_cat_id ?>">
+                      <a class="btn btn-primary" href="index.php?edit_manufacturer=<?= $manufacturer_id ?>">
                         <i class="fas fa-edit"></i> Edit
                       </a>
                     </td>
@@ -67,6 +66,8 @@ if (!isset($_SESSION['admin_email'])) {
       </div>
     </div>
   </div>
+
+
 
 
 <?php } ?>

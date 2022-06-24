@@ -24,7 +24,7 @@ if (!isset($_SESSION['admin_email'])) {
           </h5>
         </div>
         <div class="card-body">
-          <form action="" method="post">
+          <form action="" method="post" enctype="multipart/form-data">
             <div class="form-group form-row">
               <label for="" class="col-form-label col-md-3 text-right">Product Category Title</label>
               <div class="col-md-6">
@@ -32,9 +32,18 @@ if (!isset($_SESSION['admin_email'])) {
               </div>
             </div>
             <div class="form-group form-row">
-              <label for="" class="col-form-label col-md-3 text-right">Product Category Description</label>
+              <label for="" class="col-form-label col-md-3 text-right">Show as Top Product Category</label>
+              <div class="col-md-6 mt-2">
+                <input type="radio" name="p_cat_top" value="yes">
+                <label>Yes</label>
+                <input type="radio" name="p_cat_top" value="no">
+                <label>No</label>
+              </div>
+            </div>
+            <div class="form-group form-row">
+              <label for="" class="col-form-label col-md-3 text-right">Product Category Image</label>
               <div class="col-md-6">
-                <textarea name="p_cat_desc" id="mytextarea" cols="30" rows="10" required class="form-control"></textarea>
+                <input type="file" name="p_cat_image" class="form-control">
               </div>
             </div>
             <div class="form-group form-row">
@@ -51,8 +60,11 @@ if (!isset($_SESSION['admin_email'])) {
   <?php
   if (isset($_POST['submit'])) {
     $p_cat_title = $_POST['p_cat_title'];
-    $p_cat_desc = $_POST['p_cat_desc'];
-    $insert_p_cat = "INSERT INTO `product_categories` (`p_cat_title`,`p_cat_desc`) VALUES ('$p_cat_title','$p_cat_desc')";
+    $p_cat_top = $_POST['p_cat_top'];
+    $p_cat_image = $_FILES['p_cat_image']['name'];
+    $temp_name = $_FILES['p_cat_image']['tmp_name'];
+    move_uploaded_file($temp_name,"other_images/$p_cat_image");
+    $insert_p_cat = "INSERT INTO `product_categories` (`p_cat_title`,`p_cat_top`,`p_cat_image`) VALUES ('$p_cat_title','$p_cat_top','$p_cat_image')";
     $run_p_cat = mysqli_query($conn, $insert_p_cat);
     if ($run_p_cat) {
       echo "<script>alert('New product category has been inserted')</script>";

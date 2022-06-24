@@ -13,6 +13,7 @@ if (!isset($_SESSION['admin_email'])) {
     $p_title = $row_edit['product_title'];
     $p_cat = $row_edit['p_cat_id'];
     $cat = $row_edit['cat_id'];
+    $m_id = $row_edit['manufacturer_id'];
     $p_image1 = $row_edit['product_img1'];
     $p_image2 = $row_edit['product_img2'];
     $p_image3 = $row_edit['product_img3'];
@@ -20,6 +21,11 @@ if (!isset($_SESSION['admin_email'])) {
     $p_desc = $row_edit['product_desc'];
     $p_keywords = $row_edit['product_keywords'];
   }
+  $get_manufacturer = "SELECT * FROM `manufacturers` WHERE `manufacturer_id`='$m_id'";
+  $run_manufacturer = mysqli_query($conn, $get_manufacturer);
+  $row_manufacturer = mysqli_fetch_array($run_manufacturer);
+  $manufacturer_id = $row_manufacturer['manufacturer_id'];
+  $manufacturer_title = $row_manufacturer['manufacturer_title'];
   $get_p_cat = "SELECT * FROM product_categories where p_cat_id='$p_cat'";
   $run_p_cat = mysqli_query($conn, $get_p_cat);
   $row_p_cat = mysqli_fetch_array($run_p_cat);
@@ -54,6 +60,23 @@ if (!isset($_SESSION['admin_email'])) {
               <label for="" class="col-form-label col-md-3 px-5 text-right">Product Title</label>
               <div class="col-md-6">
                 <input type="text" name="product_title" class="form-control" value="<?= $p_title ?>" required>
+              </div>
+            </div>
+            <div class="form-group form-row">
+              <label for="" class="col-form-label col-md-3 px-5 text-right">Select A Manufacturer</label>
+              <div class="col-md-6">
+                <select name="manufacturer" class="form-control">
+                  <option value="<?php echo $manufacturer_id ?>"><?php echo $manufacturer_title ?></option>
+                  <?php
+                  $get_manufacturer = "SELECT * FROM `manufacturers`";
+                  $run_manufacturer = mysqli_query($conn, $get_manufacturer);
+                  while ($row_manufacturer = mysqli_fetch_array($run_manufacturer)) {
+                    $manufacturer_id = $row_manufacturer['manufacturer_id'];
+                    $manufacturer_title = $row_manufacturer['manufacturer_title'];
+                    echo "<option value='$manufacturer_id'>$manufacturer_title</option>";
+                  }
+                  ?>
+                </select>
               </div>
             </div>
             <div class="form-group form-row">
@@ -145,6 +168,7 @@ if (!isset($_SESSION['admin_email'])) {
     $product_title = $_POST['product_title'];
     $product_cat = $_POST['product_cat'];
     $cat = $_POST['cat'];
+    $manufacturer_id = $_POST['manufacturer'];
     $product_price = $_POST['product_price'];
     $product_desc = $_POST['product_desc'];
     $product_keywords = $_POST['product_keywords'];
@@ -157,7 +181,7 @@ if (!isset($_SESSION['admin_email'])) {
     move_uploaded_file($temp_name1, "product_images/$product_img1");
     move_uploaded_file($temp_name2, "product_images/$product_img2");
     move_uploaded_file($temp_name3, "product_images/$product_img3");
-    $update_product = "UPDATE `products` SET `p_cat_id`='$product_cat',`cat_id`='$cat',`date`=NOW(),`product_title`='$product_title',`product_img1`='$product_img1',`product_img2`='$product_img2',`product_img3`='$product_img3',`product_price`='$product_price',`product_desc`='$product_desc',`product_keywords`='$product_keywords' WHERE `product_id`='$p_id'";
+    $update_product = "UPDATE `products` SET `p_cat_id`='$product_cat',`cat_id`='$cat',`manufacturer_id`='$manufacturer_id',`date`=NOW(),`product_title`='$product_title',`product_img1`='$product_img1',`product_img2`='$product_img2',`product_img3`='$product_img3',`product_price`='$product_price',`product_desc`='$product_desc',`product_keywords`='$product_keywords' WHERE `product_id`='$p_id'";
     $run_product = mysqli_query($conn, $update_product);
     if ($run_product) {
       echo "<script>alert('Product has been updated successfully')</script>";

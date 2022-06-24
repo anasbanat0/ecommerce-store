@@ -31,7 +31,6 @@ if (!isset($_SESSION['admin_email'])) {
                 <tr>
                   <th>Category Id</th>
                   <th>Category Title</th>
-                  <th>Category Description</th>
                   <th>Delete Category</th>
                   <th>Edit Category</th>
                 </tr>
@@ -44,13 +43,11 @@ if (!isset($_SESSION['admin_email'])) {
                 while ($row_cats = mysqli_fetch_array($run_cats)) {
                   $cat_id = $row_cats['cat_id'];
                   $cat_title = $row_cats['cat_title'];
-                  $cat_desc = $row_cats['cat_desc'];
                   $i++;
                 ?>
                   <tr>
                     <td>#<?= $i ?></td>
                     <td><?= $cat_title ?></td>
-                    <td width="400"><?= $cat_desc ?></td>
                     <td class="text-center">
                       <a class="btn btn-danger" href="index.php?delete_cat=<?= $cat_id ?>">
                         <i class="fas fa-trash-alt"></i> Delete

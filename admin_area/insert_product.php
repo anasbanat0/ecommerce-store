@@ -31,6 +31,23 @@ if (!isset($_SESSION['admin_email'])) {
               </div>
             </div>
             <div class="form-group form-row">
+              <label for="" class="col-form-label col-md-3 px-5 text-right">Select A Manufacturer</label>
+              <div class="col-md-6">
+                <select class="form-control" name="manufacturer">
+                  <option>Select A Manufacturer</option>
+                  <?php
+                  $get_manufacturer = "SELECT * FROM `manufacturers`";
+                  $run_manufacturer = mysqli_query($conn, $get_manufacturer);
+                  while ($row_manufacturer = mysqli_fetch_array($run_manufacturer)) {
+                    $manufacturer_id = $row_manufacturer['manufacturer_id'];
+                    $manufacturer_title = $row_manufacturer['manufacturer_title'];
+                    echo "<option value='$manufacturer_id'>$manufacturer_title</option>";
+                  }
+                  ?>
+                </select>
+              </div>
+            </div>
+            <div class="form-group form-row">
               <label for="" class="col-form-label col-md-3 px-5 text-right">Product Category</label>
               <div class="col-md-6">
                 <select name="product_cat" id="" class="form-control">
@@ -116,6 +133,7 @@ if (!isset($_SESSION['admin_email'])) {
     $product_title = $_POST['product_title'];
     $product_cat = $_POST['product_cat'];
     $cat = $_POST['cat'];
+    $manufacturer_id = $_POST['manufacturer'];
     $product_price = $_POST['product_price'];
     $product_desc = $_POST['product_desc'];
     $product_keywords = $_POST['product_keywords'];
@@ -128,7 +146,7 @@ if (!isset($_SESSION['admin_email'])) {
     move_uploaded_file($temp_name1, "product_images/$product_img1");
     move_uploaded_file($temp_name2, "product_images/$product_img2");
     move_uploaded_file($temp_name3, "product_images/$product_img3");
-    $insert_product = "INSERT INTO `products`(`p_cat_id`, `cat_id`, `date`, `product_title`, `product_img1`, `product_img2`, `product_img3`, `product_price`, `product_desc`, `product_keywords`) VALUES ('$product_cat', '$cat', NOW(), '$product_title', '$product_img1', '$product_img2', '$product_img3', '$product_price', '$product_desc', '$product_keywords')";
+    $insert_product = "INSERT INTO `products`(`p_cat_id`, `cat_id`, `manufacturer_id`, `date`, `product_title`, `product_img1`, `product_img2`, `product_img3`, `product_price`, `product_desc`, `product_keywords`) VALUES ('$product_cat', '$cat', '$manufacturer_id', NOW(), '$product_title', '$product_img1', '$product_img2', '$product_img3', '$product_price', '$product_desc', '$product_keywords')";
     $run_product = mysqli_query($conn, $insert_product);
     if ($run_product) {
       echo "<script>alert('Product has been inserted successfully');</script>";

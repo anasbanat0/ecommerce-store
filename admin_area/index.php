@@ -112,6 +112,16 @@ if (!isset($_SESSION['admin_email'])) {
           include 'delete_term.php';
         } elseif (isset($_GET['edit_term'])) {
           include 'edit_term.php';
+        } elseif (isset($_GET['edit_css'])) {
+          include 'edit_css.php';
+        } elseif (isset($_GET['insert_manufacturer'])) {
+          include 'insert_manufacturer.php';
+        } elseif (isset($_GET['view_manufacturers'])) {
+          include 'view_manufacturers.php';
+        } elseif (isset($_GET['delete_manufacturer'])) {
+          include 'delete_manufacturer.php';
+        } elseif (isset($_GET['edit_manufacturer'])) {
+          include 'edit_manufacturer.php';
         }
         ?>
       </div>

@@ -24,7 +24,7 @@ if (!isset($_SESSION['admin_email'])) {
           </h5>
         </div>
         <div class="card-body">
-          <form action="" method="post">
+          <form action="" method="post" enctype="multipart/form-data">
             <div class="form-group form-row">
               <label for="" class="col-form-label col-md-3 text-right">Category Title</label>
               <div class="col-md-6">
@@ -32,9 +32,18 @@ if (!isset($_SESSION['admin_email'])) {
               </div>
             </div>
             <div class="form-group form-row">
-              <label for="" class="col-form-label col-md-3 text-right">Category Description</label>
+              <label for="" class="col-form-label col-md-3 text-right">Show as Category Top</label>
+              <div class="col-md-6 mt-2">
+                <input type="radio" name="cat_top" value="yes">
+                <label>Yes</label>
+                <input type="radio" name="cat_top" value="no">
+                <label>No</label>
+              </div>
+            </div>
+            <div class="form-group form-row">
+              <label for="" class="col-form-label col-md-3 text-right">Category Image</label>
               <div class="col-md-6">
-                <textarea name="cat_desc" id="mytextarea" cols="30" rows="10" required class="form-control"></textarea>
+                <input type="file" name="cat_image" class="form-control">
               </div>
             </div>
             <div class="form-group form-row">
@@ -52,8 +61,11 @@ if (!isset($_SESSION['admin_email'])) {
   <?php
   if (isset($_POST['submit'])) {
     $cat_title = $_POST['cat_title'];
-    $cat_desc = $_POST['cat_desc'];
-    $insert_cat = "INSERT INTO `categories` (`cat_title`,`cat_desc`) VALUES ('$cat_title','$cat_desc')";
+    $cat_top = $_POST['cat_top'];
+    $cat_image = $_FILES['cat_image']['name'];
+    $temp_name = $_FILES['cat_image']['tmp_name'];
+    move_uploaded_file($temp_name,"other_images/$cat_image");
+    $insert_cat = "INSERT INTO `categories` (`cat_title`,`cat_top`,`cat_image`) VALUES ('$cat_title','$cat_top','$cat_image')";
     $run_cat = mysqli_query($conn, $insert_cat);
     if ($run_cat) {
       echo "<script>alert('New Category has been inserted')</script>";
