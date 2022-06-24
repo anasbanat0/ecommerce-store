@@ -18,6 +18,7 @@ include_once 'includes/header.php';
         </nav>
       </div>
     </div>
+    
     <div class="row">
       <div class="col-md-9" id="cart">
         <div class="card mb-3 py-3 px-3">
@@ -28,7 +29,6 @@ include_once 'includes/header.php';
             $select_cart = "select * from cart where ip_add='$ip_add'";
             $run_cart = mysqli_query($conn, $select_cart);
             $count = mysqli_num_rows($run_cart);
-
             ?>
             <p class="text-muted">You currently have <?= $count ?> item(s) in your cart.</p>
             <div class="table-responsive">
