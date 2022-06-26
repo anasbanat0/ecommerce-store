@@ -31,7 +31,18 @@ function add_cart()
       echo "<script>alert('This Product is already added in cart')</script>";
       echo "<script>window.open('details.php?product_id=$p_id', '_self')</script>";
     } else {
-      $query = "insert into cart (p_id, ip_add, qty, size) values ('$p_id', '$ip_add', '$product_qty', '$product_size')";
+      $get_price = "SELECT * FROM `products` WHERE `product_id`='$p_id'";
+      $run_price = mysqli_query($db, $get_price);
+      $row_price = mysqli_fetch_array($run_price);
+      $pro_price = $row_price['product_price'];
+      $pro_psp_price = $row_price['product_psp_price'];
+      $pro_label = $row_price['product_label'];
+      if ($pro_label == "Sale" || $pro_label == "Gift") {
+        $product_price = $pro_psp_price;
+      } else {
+        $product_price = $pro_price;
+      }
+      $query = "INSERT INTO `cart` (`p_id`, `ip_add`, `qty`, `p_price`, `size`) values ('$p_id', '$ip_add', '$product_qty', '$product_price', '$product_size')";
       $run_query = mysqli_query($db, $query);
       echo "<script>window.open('details.php?product_id=$p_id', '_self')</script>";
     }
@@ -58,12 +69,8 @@ function total_price()
   while ($record = mysqli_fetch_array($run_cart)) {
     $pro_id = $record['p_id'];
     $pro_qty = $record['qty'];
-    $get_price = "select * from products where product_id='$pro_id'";
-    $run_price = mysqli_query($db, $get_price);
-    while ($row_price = mysqli_fetch_array($run_price)) {
-      $sub_total = $row_price['product_price'] * $pro_qty;
-      $total += $sub_total;
-    }
+    $sub_total = $record['p_price'] * $pro_qty;
+    $total += $sub_total;
   }
   echo "$" . $total;
 }
@@ -78,6 +85,29 @@ function getPro()
     $pro_title = $row_products['product_title'];
     $pro_price = $row_products['product_price'];
     $pro_img1 = $row_products['product_img1'];
+    $pro_label = $row_products['product_label'];
+    $manufacturer_id = $row_products['manufacturer_id'];
+    $get_manufacturer = "SELECT * FROM `manufacturers` WHERE `manufacturer_id`='$manufacturer_id'";
+    $run_manufacturer = mysqli_query($db, $get_manufacturer);
+    $row_manufacturer = mysqli_fetch_array($run_manufacturer);
+    $manufacturer_name = $row_manufacturer['manufacturer_title'];
+    $pro_psp_price = $row_products['product_psp_price'];
+    if ($pro_label == "Sale" || $pro_label == "Gift") {
+      $product_price = "<del>$$pro_price</del>";
+      $product_psp_price = "| $$pro_psp_price";
+    } else {
+      $product_psp_price = "";
+      $product_price = "$$pro_price";
+    }
+    if ($pro_label == "") {
+    } else {
+      $product_label = "
+        <a class='label sale' href='#' style='color:black;'>
+          <div class='thelabel'>$pro_label</div>
+          <div class='label-background'></div>
+        </a>
+      ";
+    }
     echo "
       <div class='col-md-4 col-sm-6 single'>
         <div class='product'>
@@ -85,8 +115,12 @@ function getPro()
             <img src='admin_area/product_images/$pro_img1' class='img-fluid'>
           </a>
           <div class='text'>
+            <div class='text-center'>
+              <p class='btn btn-primary'>Manufacturer: $manufacturer_name</p>
+            </div>
+            <hr class='mt-0'>
             <h3><a href='deatils.php?product_id=$pro_id'>$pro_title</a></h3>
-            <p class='price'>$$pro_price</p>
+            <p class='price'>$product_price $product_psp_price</p>
             <p class='buttons'>
               <a href='details.php?product_id=$pro_id' class='btn btn-secondary'>View Details</a>
               <a href='details.php?product_id_$pro_id' class='btn btn-primary'>
@@ -94,6 +128,7 @@ function getPro()
             </a>
             </p>
           </div>
+          $product_label
         </div>
       </div>
       ";
@@ -149,25 +184,53 @@ function getProducts()
     $pro_title = $row_products['product_title'];
     $pro_price = $row_products['product_price'];
     $pro_img1 = $row_products['product_img1'];
+    $pro_label = $row_products['product_label'];
+    $manufacturer_id = $row_products['manufacturer_id'];
+    $get_manufacturer = "SELECT * FROM `manufacturers` WHERE `manufacturer_id`='$manufacturer_id'";
+    $run_manufacturer = mysqli_query($db, $get_manufacturer);
+    $row_manufacturer = mysqli_fetch_array($run_manufacturer);
+    $manufacturer_name = $row_manufacturer['manufacturer_title'];
+    $pro_psp_price = $row_products['product_psp_price'];
+    if ($pro_label == "Sale" || $pro_label == "Gift") {
+      $product_price = "<del>$$pro_price</del>";
+      $product_psp_price = "| $$pro_psp_price";
+    } else {
+      $product_psp_price = "";
+      $product_price = "$$pro_price";
+    }
+    if ($pro_label == "") {
+    } else {
+      $product_label = "
+        <a class='label sale' href='#' style='color:black;'>
+          <div class='thelabel'>$pro_label</div>
+          <div class='label-background'></div>
+        </a>
+      ";
+    }
     echo "
-      <div class='col-md-4 col-sm-6 d-inline-flex center-responsive' >
-        <div class='product' >
-          <a href='details.php?pro_id=$pro_id' >
-            <img src='admin_area/product_images/$pro_img1' class='img-fluid' alt='$pro_title' >
+      <div class='col-md-4 col-sm-6 single center-responsive'>
+        <div class='product'>
+          <a href='details.php?product_id=$pro_id'>
+            <img src='admin_area/product_images/$pro_img1' class='img-fluid'>
           </a>
-          <div class='text' >
-            <h3><a href='details.php?product_id=$pro_id'>$pro_title</a></h3>
-            <p class='price' > $$pro_price </p>
-            <p class='buttons row'>
-              <a href='details.php?product_id=$pro_id' class='btn btn-secondary'>View details</a>
-              <a href='details.php?product_id=$pro_id' class='btn btn-primary'>
-                <i class='fa fa-shopping-cart'></i> Add to Cart
-              </a>
+          <div class='text'>
+            <div class='text-center'>
+              <p class='btn btn-primary'>Manufacturer: $manufacturer_name</p>
+            </div>
+            <hr class='mt-0'>
+            <h3><a href='deatils.php?product_id=$pro_id'>$pro_title</a></h3>
+            <p class='price'>$product_price $product_psp_price</p>
+            <p class='buttons'>
+              <a href='details.php?product_id=$pro_id' class='btn btn-secondary'>View Details</a>
+              <a href='details.php?product_id_$pro_id' class='btn btn-primary'>
+              <i class='fa fa-shopping-cart'></i> Add to cart
+            </a>
             </p>
           </div>
+          $product_label
         </div>
       </div>
-    ";
+      ";
   }
   echo "</div>";
 }

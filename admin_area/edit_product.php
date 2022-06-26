@@ -18,8 +18,10 @@ if (!isset($_SESSION['admin_email'])) {
     $p_image2 = $row_edit['product_img2'];
     $p_image3 = $row_edit['product_img3'];
     $p_price = $row_edit['product_price'];
+    $psp_price = $row_edit['product_psp_price'];
     $p_desc = $row_edit['product_desc'];
     $p_keywords = $row_edit['product_keywords'];
+    $p_label = $row_edit['product_label'];
   }
   $get_manufacturer = "SELECT * FROM `manufacturers` WHERE `manufacturer_id`='$m_id'";
   $run_manufacturer = mysqli_query($conn, $get_manufacturer);
@@ -141,6 +143,12 @@ if (!isset($_SESSION['admin_email'])) {
               </div>
             </div>
             <div class="form-group form-row">
+              <label for="" class="col-form-label col-md-3 px-5 text-right">Product Sale Price</label>
+              <div class="col-md-6">
+                <input type="text" name="psp_price" class="form-control" value="<?= $psp_price ?>">
+              </div>
+            </div>
+            <div class="form-group form-row">
               <label for="" class="col-form-label col-md-3 px-5 text-right">Product Keywords</label>
               <div class="col-md-6">
                 <input type="text" name="product_keywords" class="form-control" value="<?= $p_keywords ?>" required>
@@ -150,6 +158,12 @@ if (!isset($_SESSION['admin_email'])) {
               <label for="" class="col-form-label col-md-3 px-5 text-right">Product Description</label>
               <div class="col-md-6">
                 <textarea name="product_desc" id="mytextarea" class="form-control"><?= $p_desc ?></textarea>
+              </div>
+            </div>
+            <div class="form-group form-row">
+              <label for="" class="col-form-label col-md-3 px-5 text-right">Product Label</label>
+              <div class="col-md-6">
+                <input type="text" name="product_label" class="form-control" value="<?= $p_label ?>">
               </div>
             </div>
             <div class="form-group form-row">
@@ -171,6 +185,8 @@ if (!isset($_SESSION['admin_email'])) {
     $manufacturer_id = $_POST['manufacturer'];
     $product_price = $_POST['product_price'];
     $product_desc = $_POST['product_desc'];
+    $psp_price = $_POST['psp_price'];
+    $product_label = $_POST['product_label'];
     $product_keywords = $_POST['product_keywords'];
     $product_img1 = $_FILES['product_img1']['name'];
     $product_img2 = $_FILES['product_img2']['name'];
@@ -181,7 +197,7 @@ if (!isset($_SESSION['admin_email'])) {
     move_uploaded_file($temp_name1, "product_images/$product_img1");
     move_uploaded_file($temp_name2, "product_images/$product_img2");
     move_uploaded_file($temp_name3, "product_images/$product_img3");
-    $update_product = "UPDATE `products` SET `p_cat_id`='$product_cat',`cat_id`='$cat',`manufacturer_id`='$manufacturer_id',`date`=NOW(),`product_title`='$product_title',`product_img1`='$product_img1',`product_img2`='$product_img2',`product_img3`='$product_img3',`product_price`='$product_price',`product_desc`='$product_desc',`product_keywords`='$product_keywords' WHERE `product_id`='$p_id'";
+    $update_product = "UPDATE `products` SET `p_cat_id`='$product_cat',`cat_id`='$cat',`manufacturer_id`='$manufacturer_id',`date`=NOW(),`product_title`='$product_title',`product_img1`='$product_img1',`product_img2`='$product_img2',`product_img3`='$product_img3',`product_price`='$product_price',`product_psp_price`='$psp_price',`product_desc`='$product_desc',`product_keywords`='$product_keywords',`product_label`='$product_label' WHERE `product_id`='$p_id'";
     $run_product = mysqli_query($conn, $update_product);
     if ($run_product) {
       echo "<script>alert('Product has been updated successfully')</script>";

@@ -19,10 +19,7 @@ include_once 'includes/header.php';
       </div>
     </div>
     <div class="row">
-      <div class="col-md-3 mb-5">
-        <?php include_once 'includes/sidebar.php'; ?>
-      </div>
-      <div class="col-md-9">
+      <div class="col-md-12">
         <div class="card mb-4">
           <div class="card-header py-4 text-center">
             <h2>Contact Us</h2>

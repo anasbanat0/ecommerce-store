@@ -130,4 +130,18 @@ jQuery(function () {
   $(".get_cat").click(function () {
     getProducts();
   });
+  $(document).on("keyup", ".quantity", function () {
+    var id = $(this).data("product_id");
+    var quantity = $(this).val();
+    if (quantity != "") {
+      $.ajax({
+        url: "change.php",
+        method: "POST",
+        data: { id: id, quantity: quantity },
+        success: function (data) {
+          $("body").load("cart_body.php");
+        },
+      });
+    }
+  });
 });

@@ -1,5 +1,5 @@
 <?php
-$title = "Cart";
+$title = "Cart Body";
 include 'includes/db.php';
 include 'functions/functions.php';
 include_once 'includes/header.php';
@@ -77,7 +77,7 @@ include_once 'includes/header.php';
                           <?= $pro_size ?>
                         </td>
                         <td>
-                          <input type="checkbox" name="remove[]" value="<?= $pro_id ?>" >
+                          <input type="checkbox" name="remove[]" value="<?= $pro_id ?>">
                         </td>
                         <td>
                           $<?= $sub_total ?>.00

@@ -455,3 +455,46 @@ ul {
 .checkbox-primary input[type="checkbox"]:checked + span::after {
   color: #fff
 }
+/* Start Label Style */
+.label {
+  text-decoration: none;
+  position: absolute;
+  top: 20px;
+  padding-left: 51px;
+  z-index: 20;
+}
+.label .label-background {
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+.label .thelabel {
+  position: relative;
+  width: auto;
+  padding: 6px 30px 6px 20px;
+  margin: 40px 50px 10px -71px;
+  color: #fff;
+  font-size: 18px;
+  font-weight: bold;
+  background: #337ab7;
+  text-shadow: 0px 1px 2px #bbb;
+  border-radius: 0 20px 20px 0;
+}
+.label .thelabel::before,
+.label .thelabel::after {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 0;
+}
+.label .thelabel::after {
+  left: 0;
+  top: 100%;
+  border-width: 5px 10px;
+  border-style: solid;
+  border-color: #2d7b6b #2d7b6b transparent transparent;
+}
+.label .sale {
+  top: 0;
+}
+/* End Label Style */
