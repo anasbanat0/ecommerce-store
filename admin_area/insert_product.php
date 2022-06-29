@@ -31,6 +31,12 @@ if (!isset($_SESSION['admin_email'])) {
               </div>
             </div>
             <div class="form-group form-row">
+              <label for="" class="col-form-label col-md-3 px-5 text-right">Product Slug</label>
+              <div class="col-md-6">
+                <input type="text" name="product_url" class="form-control" placeholder="Ex: new-t-shirt" required>
+              </div>
+            </div>
+            <div class="form-group form-row">
               <label for="" class="col-form-label col-md-3 px-5 text-right">Select A Manufacturer</label>
               <div class="col-md-6">
                 <select class="form-control" name="manufacturer">
@@ -118,9 +124,30 @@ if (!isset($_SESSION['admin_email'])) {
               </div>
             </div>
             <div class="form-group form-row">
-              <label for="" class="col-form-label col-md-3 px-5 text-right">Product Description</label>
+              <label for="" class="col-form-label col-md-3 px-5 text-right">Product Tabs</label>
               <div class="col-md-6">
-                <textarea name="product_desc" id="mytextarea" class="form-control"></textarea>
+                <ul class="nav nav-pills mb-3">
+                  <li class="nav-item">
+                    <a class="nav-link active" href="#description" data-toggle="pill" role="tab">Product Description</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="#features" data-toggle="pill" role="tab">Product Features</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="#video" data-toggle="pill" role="tab">Sounds and Video</a>
+                  </li>
+                </ul>
+                <div class="tab-content">
+                  <div class="tab-pane fade show active" id="description">
+                    <textarea name="product_desc" id="mytextarea" class="form-control" rows="15"></textarea>
+                  </div>
+                  <div class="tab-pane fade show" id="features">
+                    <textarea name="product_features" id="mytextarea" class="form-control" rows="15"></textarea>
+                  </div>
+                  <div class="tab-pane fade show" id="video">
+                    <textarea name="product_video" id="mytextarea" class="form-control" rows="15"></textarea>
+                  </div>
+                </div>
               </div>
             </div>
             <div class="form-group form-row">
@@ -151,6 +178,10 @@ if (!isset($_SESSION['admin_email'])) {
     $product_keywords = $_POST['product_keywords'];
     $psp_price = $_POST['psp_price'];
     $product_label = $_POST['product_label'];
+    $product_url = $_POST['product_url'];
+    $product_features = $_POST['product_features'];
+    $product_video = $_POST['product_video'];
+    $status = "product";
     $product_img1 = $_FILES['product_img1']['name'];
     $product_img2 = $_FILES['product_img2']['name'];
     $product_img3 = $_FILES['product_img3']['name'];
@@ -160,7 +191,7 @@ if (!isset($_SESSION['admin_email'])) {
     move_uploaded_file($temp_name1, "product_images/$product_img1");
     move_uploaded_file($temp_name2, "product_images/$product_img2");
     move_uploaded_file($temp_name3, "product_images/$product_img3");
-    $insert_product = "INSERT INTO `products`(`p_cat_id`, `cat_id`, `manufacturer_id`, `date`, `product_title`, `product_img1`, `product_img2`, `product_img3`, `product_price`, `product_psp_price`, `product_desc`, `product_keywords`, `product_label`) VALUES ('$product_cat', '$cat', '$manufacturer_id', NOW(), '$product_title', '$product_img1', '$product_img2', '$product_img3', '$product_price', '$psp_price', '$product_desc', '$product_keywords', '$product_label')";
+    $insert_product = "INSERT INTO `products`(`p_cat_id`, `cat_id`, `manufacturer_id`, `date`, `product_title`, `product_url`, `product_img1`, `product_img2`, `product_img3`, `product_price`, `product_psp_price`, `product_desc`, `product_features`, `product_video`, `product_keywords`, `product_label`, `status`) VALUES ('$product_cat', '$cat', '$manufacturer_id', NOW(), '$product_title', '$product_url', '$product_img1', '$product_img2', '$product_img3', '$product_price', '$psp_price', '$product_desc', '$product_features', '$product_video', '$product_keywords', '$product_label', '$status')";
     $run_product = mysqli_query($conn, $insert_product);
     if ($run_product) {
       echo "<script>alert('Product has been inserted successfully');</script>";

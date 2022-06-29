@@ -22,8 +22,18 @@ include_once 'includes/header.php';
       <div class="col-md-12">
         <div class="card mb-4">
           <div class="card-header py-4 text-center">
-            <h2>Contact Us</h2>
-            <p class="text-muted">If you have any questions, please feel free to <a href="#">Contact Us</a>, our customer service center is working for you 24/7.</p>
+            <?php
+            $get_contact_us = "SELECT * FROM `contact_us`";
+            $run_contact_us = mysqli_query($conn, $get_contact_us);
+            $row_contact_us = mysqli_fetch_array($run_contact_us);
+            $contact_heading = $row_contact_us['contact_heading'];
+            $contact_desc = $row_contact_us['contact_desc'];
+            $contact_email = $row_contact_us['contact_email'];
+            ?>
+            <h2><?= $contact_heading ?></h2>
+            <p class="text-muted">
+              <?= $contact_desc ?>
+            </p>
           </div>
           <form class="py-4 px-4" action="contact.php" method="post">
             <div class="form-group">
@@ -39,8 +49,22 @@ include_once 'includes/header.php';
               <input type="text" class="form-control" name="subject" id="subject" required>
             </div>
             <div class="form-group">
+              <label for="message">Select Enquiry Type</label>
+              <textarea class="form-control" name="message" id="message" rows="5"></textarea>
+            </div>
+            <div class="form-group">
               <label for="message">Message</label>
-              <textarea class="form-control" name="message" id="message"></textarea>
+              <select name="enquiry_type" class="form-control">
+                <option disabled>Select Enquiry Type</option>
+                <?php
+                $get_enquiry_types = "SELECT * FROM `enquiry_type`";
+                $run_enquiry_types = mysqli_query($conn, $get_enquiry_types);
+                while ($row_enquiry_types = mysqli_fetch_array($run_enquiry_types)) {
+                  $enquiry_title = $row_enquiry_types['enquiry_title'];
+                  echo "<option>$enquiry_title</option>";
+                }
+                ?>
+              </select>
             </div>
             <div class="text-center">
               <button type="submit" name="submit" class="btn btn-primary">
@@ -55,8 +79,17 @@ include_once 'includes/header.php';
             $sender_email = $_POST['email'];
             $sender_subject = $_POST['subject'];
             $sender_message = $_POST['message'];
-            $receiver_email = "user1@anasbanat.com";
-            mail($receiver_email, $sender_subject, $sender_message, $sender_name, $sender_email);
+            $enquiry_type = $_POST['enquiry_type'];
+            $new_message = "
+              <h1>This message has been sent by $sender_name</h1>
+              <p><b>Sender Email:</b> $sender_email</p>
+              <p><b>Sender subject:</b> $sender_subject</p>
+              <p><b>Sender Enquiry Type:</b> $enquiry_type</p>
+              <p><b>Sender Message:</b> $sender_message</p>
+            ";
+            $headers = "From $sender_email \r\n";
+            $headers .= "Content-type: text/html\r\n";
+            mail($contact_email, $sender_subject, $new_message, $headers);
             // Send email to sender through this code
             $email = $_POST['email'];
             $subject = "Welcome to my website";

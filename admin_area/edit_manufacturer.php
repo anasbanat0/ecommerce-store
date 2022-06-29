@@ -13,6 +13,7 @@ if (!isset($_SESSION['admin_email'])) {
     $m_title = $row_manufacturer['manufacturer_title'];
     $m_top = $row_manufacturer['manufacturer_top'];
     $m_image = $row_manufacturer['manufacturer_image'];
+    $new_m_image = $row_manufacturer['manufacturer_image'];
   }
   ?>
   <div class="row mt-4">
@@ -83,6 +84,9 @@ if (!isset($_SESSION['admin_email'])) {
     $manufacturer_image = $_FILES['manufacturer_image']['name'];
     $tmp_name = $_FILES['manufacturer_image']['tmp_name'];
     move_uploaded_file($tmp_name, "other_images/$manufacturer_image");
+    if (empty($manufacturer_image)) {
+      $manufacturer_image = $new_m_image;
+    }
     $update_manufacturer = "UPDATE `manufacturers` SET `manufacturer_title`='$manufacturer_name',`manufacturer_top`='$manufacturer_top',`manufacturer_image`='$manufacturer_image' WHERE `manufacturer_id`='$m_id'";
     $run_manufacturer = mysqli_query($conn, $update_manufacturer);
     if ($run_manufacturer) {

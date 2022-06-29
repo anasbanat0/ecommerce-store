@@ -8,10 +8,12 @@
   <title><?= $title ?></title>
   <link rel="stylesheet" href="../css/bootstrap.min.css">
   <link rel="stylesheet" href="../css/all.min.css">
-  <script src="https://cdn.tiny.cloud/1/uy676ru9e2040docpmggweipgvsxkbtehmiqwwqc9yhi9fq7/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+  <script src="https://cdn.tiny.cloud/1/uy676ru9e2040docpmggweipgvsxkbtehmiqwwqc9yhi9fq7/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
   <script>
     tinymce.init({
-      selector: '#mytextarea'
+      selector: 'textarea',
+      plugins: 'advlist autolink lists link image charmap preview anchor pagebreak media',
+      toolbar_mode: 'floating',
     });
   </script>
   <link rel="stylesheet" href="css/main.css">

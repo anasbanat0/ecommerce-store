@@ -13,6 +13,7 @@ if (!isset($_SESSION['admin_email'])) {
     $slide_id = $row_edit['slide_id'];
     $slide_name = $row_edit['slide_name'];
     $slide_image = $row_edit['slide_image'];
+    $new_slide_image = $row_edit['slide_image'];
     $slide_url = $row_edit['slide_url'];
   }
   ?>
@@ -47,7 +48,7 @@ if (!isset($_SESSION['admin_email'])) {
             <div class="form-group form-row">
               <label for="" class="col-form-label col-md-3 text-right">Slide Image</label>
               <div class="col-md-6">
-                <input type="file" name="slide_image" class="form-control" required>
+                <input type="file" name="slide_image" class="form-control">
                 <img src="slides_images/<?= $slide_image ?>" class="img-fluid mt-2 img-thumbnail" width="150" alt="<?= $slide_name ?>">
               </div>
             </div>
@@ -76,6 +77,9 @@ if (!isset($_SESSION['admin_email'])) {
     $temp_name = $_FILES['slide_image']['tmp_name'];
     $slide_url = $_POST['slide_url'];
     move_uploaded_file($temp_name, "slides_images/$slide_image");
+    if (empty($slide_image)) {
+      $slide_image = $new_slide_image;
+    }
     $update_slide = "UPDATE `slider` SET `slide_name`='$slide_name',`slide_image`='$slide_image',`slide_url`='$slide_url' WHERE `slide_id`='$slide_id'";
     $run_slide = mysqli_query($conn, $update_slide);
     if ($run_slide) {

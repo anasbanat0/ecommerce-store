@@ -23,12 +23,55 @@ if (!isset($_SESSION['customer_email'])) {
         </div>
       </div>
       <div class="row">
+        <div class="col-md-12">
+          <?php
+          $c_email = $_SESSION['customer_email'];
+          $get_customer = "SELECT * FROM `customers` WHERE `customer_email`='$c_email'";
+          $run_customer = mysqli_query($conn, $get_customer);
+          $row_customer = mysqli_fetch_array($run_customer);
+          $customer_confirm_code = $row_customer['customer_confirm_code'];
+          $c_name = $row_customer['customer_name'];
+          if (!empty($customer_confirm_code)) {
+          ?>
+            <div class="alert alert-danger">
+              <strong>Warning!</strong> Please confirm your email and if you have not received your confirmation email
+              <a href="account.php?send_email" class="alert-link">
+                Send Email Again
+              </a>
+            </div>
+          <?php } ?>
+        </div>
+      </div>
+      <div class="row">
         <div class="col-md-3 mb-3">
           <?php include 'includes/sidebar.php'; ?>
         </div>
         <div class="col-md-9">
           <div class="card mb-3">
             <?php
+            if(isset($_GET[$customer_confirm_code])) {
+              $update_customer = "UPDATE `customers` SET `customer_confirm_code`='' WHERE `customer_confirm_code`='$customer_confirm_code'";
+              $run_confirm = mysqli_query($conn, $update_customer);
+              echo "<script>alert('Your email has been confirmed')</script>";
+              echo "<script>window.open('account.php?my_orders','_self')</script>";
+            }
+            if(isset($_GET['send_email'])) {
+              $subject = "Email Confirmation Message";
+              $from = "anasba315@gmail.com";
+              $message = "
+                <h2>
+                  Email Confirmation By Anas Banat $c_name
+                </h2>
+                <a href='localhost/ecommerce_store/customer/account.php?$customer_confirm_code'>
+                  Click Here To Confirm Email
+                </a>
+              ";
+              $headers = "From: $from \r\n";
+              $headers .= "Content-type: text/html\r\n";
+              mail($c_email, $subject, $message, $headers);
+              echo "<script>alert('Your confirmation email has been sent to you, please check your inbox')</script>";
+              echo "<script>window.open('account.php?my_orders','_self')</script>";
+            }
             if (isset($_GET['my_orders'])) {
               include 'my_orders.php';
             } elseif (isset($_GET['pay_offline'])) {

@@ -11,17 +11,23 @@ if (!isset($_SESSION['admin_email'])) {
     $row_edit = mysqli_fetch_array($run_edit);
     $p_id = $row_edit['product_id'];
     $p_title = $row_edit['product_title'];
+    $p_url = $row_edit['product_url'];
     $p_cat = $row_edit['p_cat_id'];
     $cat = $row_edit['cat_id'];
     $m_id = $row_edit['manufacturer_id'];
     $p_image1 = $row_edit['product_img1'];
     $p_image2 = $row_edit['product_img2'];
     $p_image3 = $row_edit['product_img3'];
+    $new_p_image1 = $row_edit['product_img1'];
+    $new_p_image2 = $row_edit['product_img2'];
+    $new_p_image3 = $row_edit['product_img3'];
     $p_price = $row_edit['product_price'];
     $psp_price = $row_edit['product_psp_price'];
     $p_desc = $row_edit['product_desc'];
     $p_keywords = $row_edit['product_keywords'];
     $p_label = $row_edit['product_label'];
+    $p_features = $row_edit['product_features'];
+    $p_video = $row_edit['product_video'];
   }
   $get_manufacturer = "SELECT * FROM `manufacturers` WHERE `manufacturer_id`='$m_id'";
   $run_manufacturer = mysqli_query($conn, $get_manufacturer);
@@ -62,6 +68,12 @@ if (!isset($_SESSION['admin_email'])) {
               <label for="" class="col-form-label col-md-3 px-5 text-right">Product Title</label>
               <div class="col-md-6">
                 <input type="text" name="product_title" class="form-control" value="<?= $p_title ?>" required>
+              </div>
+            </div>
+            <div class="form-group form-row">
+              <label for="" class="col-form-label col-md-3 px-5 text-right">Product Slug</label>
+              <div class="col-md-6">
+                <input type="text" name="product_url" class="form-control" value="<?= $p_url ?>" placeholder="Ex: new-t-shirt" required>
               </div>
             </div>
             <div class="form-group form-row">
@@ -118,21 +130,21 @@ if (!isset($_SESSION['admin_email'])) {
             <div class="form-group form-row">
               <label for="" class="col-form-label col-md-3 px-5 text-right">Product Image 1</label>
               <div class="col-md-6">
-                <input type="file" name="product_img1" class="form-control" required>
+                <input type="file" name="product_img1" class="form-control">
                 <img src="product_images/<?= $p_image1 ?>" class="mt-1 img-thumbnail" width="70" alt="<?= $p_title ?>">
               </div>
             </div>
             <div class="form-group form-row">
               <label for="" class="col-form-label col-md-3 px-5 text-right">Product Image 2</label>
               <div class="col-md-6">
-                <input type="file" name="product_img2" class="form-control" required>
+                <input type="file" name="product_img2" class="form-control">
                 <img src="product_images/<?= $p_image2 ?>" class="mt-1 img-thumbnail" width="70" alt="<?= $p_title ?>">
               </div>
             </div>
             <div class="form-group form-row">
               <label for="" class="col-form-label col-md-3 px-5 text-right">Product Image 3</label>
               <div class="col-md-6">
-                <input type="file" name="product_img3" class="form-control" required>
+                <input type="file" name="product_img3" class="form-control">
                 <img src="product_images/<?= $p_image3 ?>" class="mt-1 img-thumbnail" width="70" alt="<?= $p_title ?>">
               </div>
             </div>
@@ -155,9 +167,36 @@ if (!isset($_SESSION['admin_email'])) {
               </div>
             </div>
             <div class="form-group form-row">
-              <label for="" class="col-form-label col-md-3 px-5 text-right">Product Description</label>
+              <label for="" class="col-form-label col-md-3 px-5 text-right">Product Tabs</label>
               <div class="col-md-6">
-                <textarea name="product_desc" id="mytextarea" class="form-control"><?= $p_desc ?></textarea>
+                <ul class="nav nav-pills mb-3">
+                  <li class="nav-item">
+                    <a class="nav-link active" href="#description" data-toggle="pill" role="tab">Product Description</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="#features" data-toggle="pill" role="tab">Product Features</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="#video" data-toggle="pill" role="tab">Sounds and Video</a>
+                  </li>
+                </ul>
+                <div class="tab-content">
+                  <div class="tab-pane fade show active" id="description">
+                    <textarea name="product_desc" id="product_desc" class="form-control" rows="15">
+                      <?= $p_desc ?>
+                    </textarea>
+                  </div>
+                  <div class="tab-pane fade show" id="features">
+                    <textarea name="product_features" id="product_features" class="form-control" rows="15">
+                      <?= $p_features ?>
+                    </textarea>
+                  </div>
+                  <div class="tab-pane fade show" id="video">
+                    <textarea name="product_video" id="mytextarea" class="form-control" rows="15">
+                      <?= $p_video ?>
+                    </textarea>
+                  </div>
+                </div>
               </div>
             </div>
             <div class="form-group form-row">
@@ -187,17 +226,26 @@ if (!isset($_SESSION['admin_email'])) {
     $product_desc = $_POST['product_desc'];
     $psp_price = $_POST['psp_price'];
     $product_label = $_POST['product_label'];
+    $product_url = $_POST['product_url'];
+    $product_features = $_POST['product_features'];
+    $product_video = $_POST['product_video'];
     $product_keywords = $_POST['product_keywords'];
+    $status = "product";
     $product_img1 = $_FILES['product_img1']['name'];
     $product_img2 = $_FILES['product_img2']['name'];
     $product_img3 = $_FILES['product_img3']['name'];
     $temp_name1 = $_FILES['product_img1']['tmp_name'];
     $temp_name2 = $_FILES['product_img2']['tmp_name'];
     $temp_name3 = $_FILES['product_img3']['tmp_name'];
+    if (empty($product_img1) || empty($product_img2) || empty($product_img3)) {
+      $product_img1 = $new_p_image1;
+      $product_img2 = $new_p_image2;
+      $product_img3 = $new_p_image3;
+    }
     move_uploaded_file($temp_name1, "product_images/$product_img1");
     move_uploaded_file($temp_name2, "product_images/$product_img2");
     move_uploaded_file($temp_name3, "product_images/$product_img3");
-    $update_product = "UPDATE `products` SET `p_cat_id`='$product_cat',`cat_id`='$cat',`manufacturer_id`='$manufacturer_id',`date`=NOW(),`product_title`='$product_title',`product_img1`='$product_img1',`product_img2`='$product_img2',`product_img3`='$product_img3',`product_price`='$product_price',`product_psp_price`='$psp_price',`product_desc`='$product_desc',`product_keywords`='$product_keywords',`product_label`='$product_label' WHERE `product_id`='$p_id'";
+    $update_product = "UPDATE `products` SET `p_cat_id`='$product_cat',`cat_id`='$cat',`manufacturer_id`='$manufacturer_id',`date`=NOW(),`product_title`='$product_title',`product_url`='$product_url',`product_img1`='$product_img1',`product_img2`='$product_img2',`product_img3`='$product_img3',`product_price`='$product_price',`product_psp_price`='$psp_price',`product_desc`='$product_desc',`product_features`='$product_features',`product_video`='$product_video',`product_keywords`='$product_keywords',`product_label`='$product_label',`status`='$status' WHERE `product_id`='$p_id'";
     $run_product = mysqli_query($conn, $update_product);
     if ($run_product) {
       echo "<script>alert('Product has been updated successfully')</script>";

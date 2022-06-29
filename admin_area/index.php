@@ -122,6 +122,48 @@ if (!isset($_SESSION['admin_email'])) {
           include 'delete_manufacturer.php';
         } elseif (isset($_GET['edit_manufacturer'])) {
           include 'edit_manufacturer.php';
+        } elseif (isset($_GET['insert_coupon'])) {
+          include 'insert_coupon.php';
+        } elseif (isset($_GET['view_coupons'])) {
+          include 'view_coupons.php';
+        } elseif (isset($_GET['delete_coupon'])) {
+          include 'delete_coupon.php';
+        } elseif (isset($_GET['edit_coupon'])) {
+          include 'edit_coupon.php';
+        } elseif (isset($_GET['insert_icon'])) {
+          include 'insert_icon.php';
+        } elseif (isset($_GET['view_icons'])) {
+          include 'view_icons.php';
+        } elseif (isset($_GET['delete_icon'])) {
+          include 'delete_icon.php';
+        } elseif (isset($_GET['edit_icon'])) {
+          include 'edit_icon.php';
+        } elseif (isset($_GET['insert_bundle'])) {
+          include 'insert_bundle.php';
+        } elseif (isset($_GET['view_bundles'])) {
+          include 'view_bundles.php';
+        } elseif (isset($_GET['delete_bundle'])) {
+          include 'delete_bundle.php';
+        } elseif (isset($_GET['edit_bundle'])) {
+          include 'edit_bundle.php';
+        } elseif (isset($_GET['insert_rel'])) {
+          include 'insert_rel.php';
+        } elseif (isset($_GET['view_rel'])) {
+          include 'view_rel.php';
+        } elseif (isset($_GET['delete_rel'])) {
+          include 'delete_rel.php';
+        } elseif (isset($_GET['edit_rel'])) {
+          include 'edit_rel.php';
+        } elseif (isset($_GET['edit_contact_us'])) {
+          include 'edit_contact_us.php';
+        } elseif (isset($_GET['insert_enquiry'])) {
+          include 'insert_enquiry.php';
+        } elseif (isset($_GET['view_enquiry'])) {
+          include 'view_enquiry.php';
+        } elseif (isset($_GET['delete_enquiry'])) {
+          include 'delete_enquiry.php';
+        } elseif (isset($_GET['edit_enquiry'])) {
+          include 'edit_enquiry.php';
         }
         ?>
       </div>

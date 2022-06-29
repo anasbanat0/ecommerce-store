@@ -109,6 +109,13 @@ ul {
   background-color: var(--primaryColor);
   border-color: var(--accentColor);
 }
+.btn-primary:not(:disabled):not(.disabled).active,
+.btn-primary:not(:disabled):not(.disabled):active,
+.show>.btn-primary.dropdown-toggle {
+  color: var(--whiteColor);
+  background-color: var(--primaryColor);
+  border-color: var(--accentColor);
+}
 @media (max-width: 1200px) and (min-width: 992px) {
   .navbar ul.navbar-nav > li > a {
     font-size: 12px;
@@ -498,3 +505,42 @@ ul {
   top: 0;
 }
 /* End Label Style */
+/* tick and cross icons styles */
+.tick1 {
+  font-size: 18px !important;
+  color: red;
+}
+.cross1 {
+  font-size: 18px !important;
+  color: red;
+}
+.tick2 {
+  font-size: 18px !important;
+  color: red;
+}
+.cross2 {
+  font-size: 18px !important;
+  color: red;
+}
+/* Password Strength Checker Styles */
+#meter_wrapper {
+  border: 1px solid gray;
+  width: 202px;
+  height: 20px;
+  margin: 0;
+  border-radius: 3px;
+}
+#meter {
+  width: 0px;
+  height: 18px;
+  border-radius: 2px;
+}
+#pass_type {
+  font-size: 15px;
+  margin-top: 10px;
+  position: absolute;
+  top: 0;
+  right: 90px;
+  margin-bottom: 10%;
+  color: gray
+}

@@ -1,4 +1,4 @@
-<div class="card">
+<div class="card mb-4">
   <div class="card-header pt-4">
     <div class="text-center">
       <h2>Login</h2>
@@ -23,10 +23,14 @@
           <i class="fas fa-sign-in-alt"></i> Login
         </button>
       </div>
+      <div class="text-center mt-3">
+        <a href="forgot_pass.php">Forgot Password?</a>
+      </div>
     </form>
+    <hr>
     <div class="text-center mt-4">
-      <a href="customer_register.php">
-        <h5>Are you new? Register here</h5>
+      <a href="customer_register.php" class="btn btn-success" style="background: #42b72a; font-size: 18px">
+        <i class="fa fa-user"></i> Create new account
       </a>
     </div>
   </div>

@@ -13,6 +13,7 @@ if (!isset($_SESSION['admin_email'])) {
     $p_cat_title = $row_edit['p_cat_title'];
     $p_cat_top = $row_edit['p_cat_top'];
     $p_cat_image = $row_edit['p_cat_image'];
+    $new_p_cat_image = $row_edit['p_cat_image'];
   }
   ?>
   <div class="row mt-4">
@@ -83,6 +84,9 @@ if (!isset($_SESSION['admin_email'])) {
     $p_cat_image = $_FILES['p_cat_image']['name'];
     $temp_name = $_FILES['p_cat_image']['tmp_name'];
     move_uploaded_file($temp_name, "other_images/$p_cat_image");
+    if (empty($p_cat_image)) {
+      $p_cat_image = $new_p_cat_image;
+    }
     $update_p_cat = "UPDATE `product_categories` SET `p_cat_title`='$p_cat_title', `p_cat_top`='$p_cat_top', `p_cat_image`='$p_cat_image' WHERE `p_cat_id`='$p_cat_id'";
     $run_p_cat = mysqli_query($conn, $update_p_cat);
     if ($run_p_cat) {

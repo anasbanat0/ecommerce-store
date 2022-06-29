@@ -14,6 +14,7 @@ if (!isset($_SESSION['admin_email'])) {
     $c_title = $row_edit['cat_title'];
     $c_top = $row_edit['cat_top'];
     $c_image = $row_edit['cat_image'];
+    $new_c_image = $row_edit['cat_image'];
   }
   ?>
 
@@ -63,7 +64,7 @@ if (!isset($_SESSION['admin_email'])) {
               <label for="" class="col-form-label col-md-3 text-right">Category Image</label>
               <div class="col-md-6">
                 <input type="file" name="cat_image" class="form-control">
-                <img src="other_images/<?=$c_image?>" alt="<?=$c_title?>" class="mt-1 img-thumbnail" width="70">
+                <img src="other_images/<?= $c_image ?>" alt="<?= $c_title ?>" class="mt-1 img-thumbnail" width="70">
               </div>
             </div>
             <div class="form-group form-row">
@@ -85,6 +86,9 @@ if (!isset($_SESSION['admin_email'])) {
     $cat_image = $_FILES['cat_image']['name'];
     $temp_name = $_FILES['cat_image']['tmp_name'];
     move_uploaded_file($temp_name, "other_images/$cat_image");
+    if (empty($cat_image)) {
+      $cat_image = $new_c_image;
+    }
     $update_cat = "UPDATE `categories` SET `cat_title`='$cat_title',`cat_top`='$cat_top',`cat_image`='$cat_image' WHERE `cat_id`='$c_id'";
     $run_cat = mysqli_query($conn, $update_cat);
     if ($run_cat) {

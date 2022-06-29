@@ -93,6 +93,13 @@ include_once 'includes/header.php';
                   </tr>
                 </tfoot>
               </table>
+              <div class="form-inline float-right my-3">
+                <div class="form-group">
+                  <label>Coupon Code: </label>&nbsp;&nbsp;&nbsp;
+                  <input type="text" name="code" class="form-control">
+                </div>&nbsp;&nbsp;
+                <input type="submit" class="btn btn-primary" name="apply_coupon" value="Apply Coupon Code">
+              </div>
             </div>
             <div class="cart-footer">
               <div class="float-left">
@@ -111,6 +118,43 @@ include_once 'includes/header.php';
             </div>
           </form>
         </div>
+        <?php
+        if (isset($_POST['apply_coupon'])) {
+          $code = $_POST['code'];
+          if ($code == "") {
+          } else {
+            $get_coupons = "SELECT * FROM `coupons` WHERE `coupon_code`='$code'";
+            $run_coupons = mysqli_query($conn, $get_coupons);
+            $check_coupons = mysqli_num_rows($run_coupons);
+            if ($check_coupons == 1) {
+              $row_coupons = mysqli_fetch_array($run_coupons);
+              $coupon_pro = $row_coupons['product_id'];
+              $coupon_price = $row_coupons['coupon_price'];
+              $coupon_limit = $row_coupons['coupon_limit'];
+              $coupon_used = $row_coupons['coupon_used'];
+              if ($coupon_limit == $coupon_used) {
+                echo "<script>alert('Your coupon code has been expired')</script>";
+              } else {
+                $get_cart = "SELECT * FROM `cart` WHERE `p_id`='$coupon_pro' AND `ip_add`='$ip_add'";
+                $run_cart = mysqli_query($conn, $get_cart);
+                $check_cart = mysqli_num_rows($run_cart);
+                if ($check_cart == 1) {
+                  $add_used = "UPDATE `coupons` SET `coupon_used`=`coupon_used`+1 WHERE `coupon_code`='$code'";
+                  $run_used = mysqli_query($conn, $add_used);
+                  $update_cart = "UPDATE `cart` SET `p_price`='$coupon_price' WHERE `p_id`='$coupon_pro' AND `ip_add`='$ip_add'";
+                  $run_update = mysqli_query($conn, $update_cart);
+                  echo "<script>alert('Your coupon code has been applied')</script>";
+                  echo "<script>window.open('cart.php','_self')</script>";
+                } else {
+                  echo "<script>alert('Product does not exist in cart')</script>";
+                }
+              }
+            } else {
+              echo "<script>alert('Your coupon code is not valid')</script>";
+            }
+          }
+        }
+        ?>
         <?php
         function update_cart()
         {
@@ -148,6 +192,7 @@ include_once 'includes/header.php';
             $row_manufacturer = mysqli_fetch_array($run_manufacturer);
             $manufacturer_name = $row_manufacturer['manufacturer_title'];
             $pro_psp_price = $row_products['product_psp_price'];
+            $pro_url = $row_products['product_url'];
             if ($pro_label == "Sale" || $pro_label == "Gift") {
               $product_price = "<del>$$pro_price</del>";
               $product_psp_price = "| $$pro_psp_price";
@@ -167,7 +212,7 @@ include_once 'includes/header.php';
             echo "
       <div class='col-md-4 col-sm-6 center-responsive'>
         <div class='product'>
-          <a href='details.php?product_id=$pro_id'>
+          <a href='$pro_url'>
             <img src='admin_area/product_images/$pro_img1' class='img-fluid'>
           </a>
           <div class='text'>
@@ -175,11 +220,11 @@ include_once 'includes/header.php';
               <p class='btn btn-primary'>Manufacturer: $manufacturer_name</p>
             </div>
             <hr class='mt-0'>
-            <h3><a href='deatils.php?product_id=$pro_id'>$pro_title</a></h3>
+            <h3><a href='$pro_url'>$pro_title</a></h3>
             <p class='price'>$product_price $product_psp_price</p>
             <p class='buttons'>
-              <a href='details.php?product_id=$pro_id' class='btn btn-secondary'>View Details</a>
-              <a href='details.php?product_id_$pro_id' class='btn btn-primary'>
+              <a href='$pro_url' class='btn btn-secondary'>View Details</a>
+              <a href='$pro_url' class='btn btn-primary'>
               <i class='fa fa-shopping-cart'></i> Add to cart
             </a>
             </p>

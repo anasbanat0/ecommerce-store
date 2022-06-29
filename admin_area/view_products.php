@@ -42,7 +42,7 @@ if (!isset($_SESSION['admin_email'])) {
               <tbody>
                 <?php
                 $i = 0;
-                $get_pro = "SELECT * FROM `products`";
+                $get_pro = "SELECT * FROM `products` WHERE `status`='product'";
                 $run_pro = mysqli_query($conn, $get_pro);
                 while ($row_pro = mysqli_fetch_array($run_pro)) {
                   $pro_id = $row_pro['product_id'];

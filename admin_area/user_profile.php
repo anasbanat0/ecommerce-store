@@ -14,6 +14,7 @@ if (!isset($_SESSION['admin_email'])) {
     $admin_email = $row_admin['admin_email'];
     $admin_pass = $row_admin['admin_pass'];
     $admin_image = $row_admin['admin_image'];
+    $new_admin_image = $row_admin['admin_image'];
     $admin_country = $row_admin['admin_country'];
     $admin_contact = $row_admin['admin_contact'];
     $admin_job = $row_admin['admin_job'];
@@ -88,7 +89,7 @@ if (!isset($_SESSION['admin_email'])) {
             <div class="form-group form-row">
               <label class="col-form-label col-md-3 px-5 text-right">User Image</label>
               <div class="col-md-6">
-                <input type="file" name="admin_image" class="form-control" required>
+                <input type="file" name="admin_image" class="form-control">
                 <img src="admin_images/<?= $admin_image ?>" width="100" class="img-fluid mt-2" alt="<?= $admin_name ?>">
               </div>
             </div>
@@ -115,6 +116,9 @@ if (!isset($_SESSION['admin_email'])) {
     $admin_image = $_FILES['admin_image']['name'];
     $temp_admin_image = $_FILES['admin_image']['tmp_name'];
     move_uploaded_file($temp_admin_image, "admin_images/$admin_image");
+    if (empty($admin_image)) {
+      $admin_image = $new_admin_image;
+    }
     $update_admin = "UPDATE `admins` SET `admin_name`='$admin_name',`admin_email`='$admin_email',`admin_pass`='$admin_pass',`admin_image`='$admin_image',`admin_contact`='$admin_contact',`admin_country`='$admin_country',`admin_job`='$admin_job',`admin_about`='$admin_about' WHERE `admin_id`= '$admin_id'";
     $run_admin = mysqli_query($conn, $update_admin);
     if ($run_admin) {

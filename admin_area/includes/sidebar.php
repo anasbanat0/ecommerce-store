@@ -62,6 +62,48 @@ if (!isset($_SESSION['admin_email'])) {
           </ul>
         </li>
         <li class="nav-item">
+          <a href="#" class="nav-link" data-toggle="collapse" data-target="#bundles">
+            <i class="fas fa-edit fa-fw"></i> Bundles
+            <i class="fas fa-caret-down"></i>
+          </a>
+          <ul id="bundles" class="collapse">
+            <li>
+              <a href="index.php?insert_bundle">Insert Bundle</a>
+            </li>
+            <li>
+              <a href="index.php?view_bundles">View Bundles</a>
+            </li>
+          </ul>
+        </li>
+        <li class="nav-item">
+          <a href="#" class="nav-link" data-target="#relations" data-toggle="collapse">
+            <i class="fas fa-retweet fa-fw"></i> Assign Product Relations
+            <i class="fas fa-caret-down"></i>
+          </a>
+          <ul id="relations" class="collapse">
+            <li>
+              <a href="index.php?insert_rel">Insert Relation</a>
+            </li>
+            <li>
+              <a href="index.php?view_rel">View Relations</a>
+            </li>
+          </ul>
+        </li>
+        <li class="nav-item">
+          <a href="#" class="nav-link" data-toggle="collapse" data-target="#icons">
+            <i class="fas fa-retweet fa-fw"></i> Icons
+            <i class="fas fa-caret-down"></i>
+          </a>
+          <ul id="icons" class="collapse">
+            <li>
+              <a href="index.php?insert_icon">Insert Icon</a>
+            </li>
+            <li>
+              <a href="index.php?view_icons">View Icons</a>
+            </li>
+          </ul>
+        </li>
+        <li class="nav-item">
           <a href="#" class="nav-link" data-toggle="collapse" data-target="#manufacturers">
             <i class="fas fa-briefcase fa-fw"></i> Manufacturers
             <i class="fa fa-caret-down"></i>
@@ -126,6 +168,31 @@ if (!isset($_SESSION['admin_email'])) {
           </ul>
         </li>
         <li class="nav-item">
+          <a href="#" class="nav-link" data-toggle="collapse" data-target="#contact_us">
+            <i class="fa fa-fw fa-edit"></i> Contact Us
+            <i class="fas fa-caret-down"></i>
+          </a>
+          <ul class="collapse" id="contact_us">
+            <li><a href="index.php?edit_contact_us">Edit Contact Us</a></li>
+            <li><a href="index.php?insert_enquiry">Insert Enquiry Type</a></li>
+            <li><a href="index.php?view_enquiry">View Enquiry Types</a></li>
+          </ul>
+        </li>
+        <li class="nav-item">
+          <a href="#" class="nav-link" data-toggle="collapse" data-target="#coupons">
+            <i class="fa fa-arrows-alt-v fa-fw"></i> Coupons
+            <i class="fa fa-caret-down"></i>
+          </a>
+          <ul class="collapse" id="coupons">
+            <li>
+              <a href="index.php?insert_coupon">Insert Coupon</a>
+            </li>
+            <li>
+              <a href="index.php?view_coupons">View Coupons</a>
+            </li>
+          </ul>
+        </li>
+        <li class="nav-item">
           <a class="nav-link" href="#" data-toggle="collapse" data-target="#slides">
             <i class="fas fa-cogs"></i> Slides
             <i class="fa fa-caret-down"></i>
@@ -161,11 +228,11 @@ if (!isset($_SESSION['admin_email'])) {
             </li>
           </ul>
         </li>
-        <div class="nav-item">
+        <li class="nav-item">
           <a href="index.php?edit_css" class="nav-link">
             <i class="fas fa-file-code"></i> Edit Css File
           </a>
-        </div>
+        </li>
         <li class="nav-item">
           <a href="index.php?view_customers" class="nav-link">
             <i class="fas fa-edit"></i> View Customers
