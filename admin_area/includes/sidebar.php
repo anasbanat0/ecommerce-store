@@ -168,6 +168,20 @@ if (!isset($_SESSION['admin_email'])) {
           </ul>
         </li>
         <li class="nav-item">
+          <a class="nav-link" href="#" data-toggle="collapse" data-target="#services">
+            <i class="fas fa-university"></i> Services
+            <i class="fas fa-caret-down"></i>
+          </a>
+          <ul id="services" class="collapse">
+            <li>
+              <a href="index.php?insert_service">Insert Service</a>
+            </li>
+            <li>
+              <a href="index.php?view_services">View Services</a>
+            </li>
+          </ul>
+        </li>
+        <li class="nav-item">
           <a href="#" class="nav-link" data-toggle="collapse" data-target="#contact_us">
             <i class="fa fa-fw fa-edit"></i> Contact Us
             <i class="fas fa-caret-down"></i>
@@ -177,6 +191,11 @@ if (!isset($_SESSION['admin_email'])) {
             <li><a href="index.php?insert_enquiry">Insert Enquiry Type</a></li>
             <li><a href="index.php?view_enquiry">View Enquiry Types</a></li>
           </ul>
+        </li>
+        <li class="nav-item">
+          <a href="index.php?edit_about_us" class="nav-link">
+            <i class="fas fa-fw fa-edit"></i> Edit About Us Page
+          </a>
         </li>
         <li class="nav-item">
           <a href="#" class="nav-link" data-toggle="collapse" data-target="#coupons">

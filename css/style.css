@@ -176,6 +176,10 @@ ul {
   z-index: 2;
 }
 /* Products Styles */
+.flex-wrap {
+  display: flex;
+  flex-wrap: wrap;
+}
 #hot h2 {
   text-transform: uppercase;
   font-size: 36px;
@@ -183,9 +187,6 @@ ul {
   font-weight: 300;
   text-align: center;
   padding: 25px 0 15px;
-}
-#content {
-  padding-left: 25px;
 }
 .single {
   width: 290px;
@@ -543,4 +544,9 @@ ul {
   right: 90px;
   margin-bottom: 10%;
   color: gray
+}
+/* Services Styles */
+.services .col-md-4 {
+  /* margin-left: 3%; */
+  /* width: 29%; */
 }

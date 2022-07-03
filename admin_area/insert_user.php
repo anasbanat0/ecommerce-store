@@ -89,6 +89,7 @@ if (!isset($_SESSION['admin_email'])) {
     $admin_name = $_POST['admin_name'];
     $admin_email = $_POST['admin_email'];
     $admin_pass = $_POST['admin_pass'];
+    $encrypted_password = password_hash($admin_pass, PASSWORD_DEFAULT);
     $admin_country = $_POST['admin_country'];
     $admin_job = $_POST['admin_job'];
     $admin_contact = $_POST['admin_contact'];
@@ -96,7 +97,7 @@ if (!isset($_SESSION['admin_email'])) {
     $admin_image = $_FILES['admin_image']['name'];
     $temp_admin_image = $_FILES['admin_image']['tmp_name'];
     move_uploaded_file($temp_admin_image, "admin_images/$admin_image");
-    $insert_admin = "INSERT INTO `admins`(`admin_name`, `admin_email`, `admin_pass`, `admin_image`, `admin_contact`, `admin_country`, `admin_job`, `admin_about`) VALUES ('$admin_name', '$admin_email', '$admin_pass', '$admin_image', '$admin_contact', '$admin_country', '$admin_job', '$admin_about')";
+    $insert_admin = "INSERT INTO `admins`(`admin_name`, `admin_email`, `admin_pass`, `admin_image`, `admin_contact`, `admin_country`, `admin_job`, `admin_about`) VALUES ('$admin_name', '$admin_email', '$encrypted_password', '$admin_image', '$admin_contact', '$admin_country', '$admin_job', '$admin_about')";
     $run_admin = mysqli_query($conn, $insert_admin);
     if ($run_admin) {
       echo "<script>alert('One user has been inserted successfully')</script>";

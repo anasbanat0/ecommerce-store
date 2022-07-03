@@ -24,143 +24,120 @@ if (!isset($_SESSION['admin_email'])) {
         </div>
         <div class="card-body">
           <form method="post" enctype="multipart/form-data">
-            <div class="form-group form-row">
-              <label for="" class="col-form-label col-md-3 px-5 text-right">Product Title</label>
-              <div class="col-md-6">
-                <input type="text" name="product_title" class="form-control" required>
-              </div>
-            </div>
-            <div class="form-group form-row">
-              <label for="" class="col-form-label col-md-3 px-5 text-right">Product Slug</label>
-              <div class="col-md-6">
-                <input type="text" name="product_url" class="form-control" placeholder="Ex: new-t-shirt" required>
-              </div>
-            </div>
-            <div class="form-group form-row">
-              <label for="" class="col-form-label col-md-3 px-5 text-right">Select A Manufacturer</label>
-              <div class="col-md-6">
-                <select class="form-control" name="manufacturer">
-                  <option>Select A Manufacturer</option>
-                  <?php
-                  $get_manufacturer = "SELECT * FROM `manufacturers`";
-                  $run_manufacturer = mysqli_query($conn, $get_manufacturer);
-                  while ($row_manufacturer = mysqli_fetch_array($run_manufacturer)) {
-                    $manufacturer_id = $row_manufacturer['manufacturer_id'];
-                    $manufacturer_title = $row_manufacturer['manufacturer_title'];
-                    echo "<option value='$manufacturer_id'>$manufacturer_title</option>";
-                  }
-                  ?>
-                </select>
-              </div>
-            </div>
-            <div class="form-group form-row">
-              <label for="" class="col-form-label col-md-3 px-5 text-right">Product Category</label>
-              <div class="col-md-6">
-                <select name="product_cat" id="" class="form-control">
-                  <option>Select a Product Category</option>
-                  <?php
-                  $get_p_cats = "select * from product_categories";
-                  $run_p_cats = mysqli_query($conn, $get_p_cats);
-                  while ($row_p_cats = mysqli_fetch_assoc($run_p_cats)) {
-                    $p_cat_id = $row_p_cats['p_cat_id'];
-                    $p_cat_title = $row_p_cats['p_cat_title'];
-                    echo "<option value='$p_cat_id'>$p_cat_title</option>";
-                  }
-                  ?>
-                </select>
-              </div>
-            </div>
-            <div class="form-group form-row">
-              <label for="" class="col-form-label col-md-3 px-5 text-right">Category</label>
-              <div class="col-md-6">
-                <select name="cat" class="form-control">
-                  <option>Select a Category</option>
-                  <?php
-                  $get_cat = "select * from Categories";
-                  $run_cat = mysqli_query($conn, $get_cat);
-                  while ($row_cat = mysqli_fetch_assoc($run_cat)) {
-                    $cat_id = $row_cat['cat_id'];
-                    $cat_title = $row_cat['cat_title'];
-                    echo "<option value='$cat_id'>$cat_title</option>";
-                  }
-                  ?>
-                </select>
-              </div>
-            </div>
-            <div class="form-group form-row">
-              <label for="" class="col-form-label col-md-3 px-5 text-right">Product Image 1</label>
-              <div class="col-md-6">
-                <input type="file" name="product_img1" class="form-control" required>
-              </div>
-            </div>
-            <div class="form-group form-row">
-              <label for="" class="col-form-label col-md-3 px-5 text-right">Product Image 2</label>
-              <div class="col-md-6">
-                <input type="file" name="product_img2" class="form-control" required>
-              </div>
-            </div>
-            <div class="form-group form-row">
-              <label for="" class="col-form-label col-md-3 px-5 text-right">Product Image 3</label>
-              <div class="col-md-6">
-                <input type="file" name="product_img3" class="form-control" required>
-              </div>
-            </div>
-            <div class="form-group form-row">
-              <label for="" class="col-form-label col-md-3 px-5 text-right">Product Price</label>
-              <div class="col-md-6">
-                <input type="text" name="product_price" class="form-control" required>
-              </div>
-            </div>
-            <div class="form-group form-row">
-              <label for="" class="col-form-label col-md-3 px-5 text-right">Product Sale Price</label>
-              <div class="col-md-6">
-                <input type="text" name="psp_price" class="form-control" required>
-              </div>
-            </div>
-            <div class="form-group form-row">
-              <label for="" class="col-form-label col-md-3 px-5 text-right">Product Keywords</label>
-              <div class="col-md-6">
-                <input type="text" name="product_keywords" class="form-control" required>
-              </div>
-            </div>
-            <div class="form-group form-row">
-              <label for="" class="col-form-label col-md-3 px-5 text-right">Product Tabs</label>
-              <div class="col-md-6">
-                <ul class="nav nav-pills mb-3">
-                  <li class="nav-item">
-                    <a class="nav-link active" href="#description" data-toggle="pill" role="tab">Product Description</a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link" href="#features" data-toggle="pill" role="tab">Product Features</a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link" href="#video" data-toggle="pill" role="tab">Sounds and Video</a>
-                  </li>
-                </ul>
-                <div class="tab-content">
-                  <div class="tab-pane fade show active" id="description">
-                    <textarea name="product_desc" id="mytextarea" class="form-control" rows="15"></textarea>
+            <div class="row">
+              <div class="col-md-8">
+                <div class="form-group">
+                  <label class="col-form-label">Product Title</label>
+                  <input type="text" name="product_title" class="form-control" required>
+                </div>
+                <div class="form-group">
+                  <label for="" class="col-form-label">Product Slug</label>
+                  <input type="text" name="product_url" class="form-control" placeholder="Ex: new-t-shirt" required>
+                </div>
+                <div class="form-group">
+                  <label for="" class="col-form-label">Product Tabs</label>
+                  <ul class="nav nav-pills mb-3">
+                    <li class="nav-item">
+                      <a class="nav-link active" href="#description" data-toggle="pill" role="tab">Product Description</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" href="#features" data-toggle="pill" role="tab">Product Features</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" href="#video" data-toggle="pill" role="tab">Sounds and Video</a>
+                    </li>
+                  </ul>
+                  <div class="tab-content">
+                    <div class="tab-pane fade show active" id="description">
+                      <textarea name="product_desc" id="textarea" class="form-control" rows="15"></textarea>
+                    </div>
+                    <div class="tab-pane fade show" id="features">
+                      <textarea name="product_features" id="textarea" class="form-control" rows="15"></textarea>
+                    </div>
+                    <div class="tab-pane fade show" id="video">
+                      <textarea name="product_video" class="form-control" rows="15"></textarea>
+                    </div>
                   </div>
-                  <div class="tab-pane fade show" id="features">
-                    <textarea name="product_features" id="mytextarea" class="form-control" rows="15"></textarea>
-                  </div>
-                  <div class="tab-pane fade show" id="video">
-                    <textarea name="product_video" id="mytextarea" class="form-control" rows="15"></textarea>
-                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="" class="col-form-label">Product Price</label>
+                  <input type="text" name="product_price" class="form-control" required>
+                </div>
+                <div class="form-group">
+                  <label for="" class="col-form-label">Product Sale Price</label>
+                  <input type="text" name="psp_price" class="form-control" required>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label for="" class="col-form-label">Select A Manufacturer</label>
+                  <select class="form-control" name="manufacturer">
+                    <option>Select A Manufacturer</option>
+                    <?php
+                    $get_manufacturer = "SELECT * FROM `manufacturers`";
+                    $run_manufacturer = mysqli_query($conn, $get_manufacturer);
+                    while ($row_manufacturer = mysqli_fetch_array($run_manufacturer)) {
+                      $manufacturer_id = $row_manufacturer['manufacturer_id'];
+                      $manufacturer_title = $row_manufacturer['manufacturer_title'];
+                      echo "<option value='$manufacturer_id'>$manufacturer_title</option>";
+                    }
+                    ?>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label for="" class="col-form-label">Product Category</label>
+                  <select name="product_cat" id="" class="form-control">
+                    <option>Select a Product Category</option>
+                    <?php
+                    $get_p_cats = "select * from product_categories";
+                    $run_p_cats = mysqli_query($conn, $get_p_cats);
+                    while ($row_p_cats = mysqli_fetch_assoc($run_p_cats)) {
+                      $p_cat_id = $row_p_cats['p_cat_id'];
+                      $p_cat_title = $row_p_cats['p_cat_title'];
+                      echo "<option value='$p_cat_id'>$p_cat_title</option>";
+                    }
+                    ?>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label for="" class="col-form-label">Category</label>
+                  <select name="cat" class="form-control">
+                    <option>Select a Category</option>
+                    <?php
+                    $get_cat = "select * from Categories";
+                    $run_cat = mysqli_query($conn, $get_cat);
+                    while ($row_cat = mysqli_fetch_assoc($run_cat)) {
+                      $cat_id = $row_cat['cat_id'];
+                      $cat_title = $row_cat['cat_title'];
+                      echo "<option value='$cat_id'>$cat_title</option>";
+                    }
+                    ?>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label for="" class="col-form-label">Product Image 1</label>
+                  <input type="file" name="product_img1" class="form-control" required>
+                </div>
+                <div class="form-group">
+                  <label for="" class="col-form-label">Product Image 2</label>
+                  <input type="file" name="product_img2" class="form-control" required>
+                </div>
+                <div class="form-group">
+                  <label for="" class="col-form-label">Product Image 3</label>
+                  <input type="file" name="product_img3" class="form-control" required>
+                </div>
+                <div class="form-group">
+                  <label for="" class="col-form-label">Product Keywords</label>
+                  <input type="text" name="product_keywords" class="form-control" required>
+                </div>
+                <div class="form-group">
+                  <label for="" class="col-form-label">Product Label</label>
+                  <input type="text" name="product_label" class="form-control" required>
                 </div>
               </div>
             </div>
-            <div class="form-group form-row">
-              <label for="" class="col-form-label col-md-3 px-5 text-right">Product Label</label>
-              <div class="col-md-6">
-                <input type="text" name="product_label" class="form-control" required>
-              </div>
-            </div>
-            <div class="form-group form-row">
-              <label for="" class="col-form-label col-md-3"></label>
-              <div class="col-md-6">
-                <input type="submit" value="Insert Product" name="submit" class="btn btn-primary form-control">
-              </div>
+            <div class="form-group">
+              <input type="submit" value="Insert Product" name="submit" class="btn btn-primary form-control">
             </div>
           </form>
         </div>

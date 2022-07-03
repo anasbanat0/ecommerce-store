@@ -115,6 +115,7 @@ if (isset($_POST['register'])) {
     $c_name = $_POST['c_name'];
     $c_email = $_POST['c_email'];
     $c_pass = $_POST['c_pass'];
+    $encrypted_password = password_hash($c_pass, PASSWORD_DEFAULT);
     $c_country = $_POST['c_country'];
     $c_city = $_POST['c_city'];
     $c_contact = $_POST['c_contact'];
@@ -144,7 +145,7 @@ if (isset($_POST['register'])) {
     $headers = "From: $from \r\n";
     $headers .= "Content-type: text/html\r\n";
     mail($c_email, $subject, $message, $headers);
-    $insert_customer = "insert into customers (customer_name, customer_email, customer_pass, customer_country, customer_city, customer_contact, customer_address, customer_image, customer_ip, customer_confirm_code) values ('$c_name','$c_email','$c_pass','$c_country','$c_city','$c_contact','$c_address','$c_image','$c_ip','$customer_confirm_code')";
+    $insert_customer = "insert into customers (customer_name, customer_email, customer_pass, customer_country, customer_city, customer_contact, customer_address, customer_image, customer_ip, customer_confirm_code) values ('$c_name','$c_email','$encrypted_password','$c_country','$c_city','$c_contact','$c_address','$c_image','$c_ip','$customer_confirm_code')";
     $run_customer = mysqli_query($conn, $insert_customer);
     $sel_cart = "select * from cart where ip_add='$c_ip'";
     $run_cart = mysqli_query($conn, $sel_cart);

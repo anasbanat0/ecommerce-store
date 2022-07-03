@@ -20,10 +20,14 @@ function getRealUserIp()
 function items()
 {
   global $db;
+  $count_items = 0;
   $ip_add = getRealUserIp();
   $get_items = "select * from cart where ip_add='$ip_add'";
-  $result = mysqli_query($db, $get_items);
-  $count_items = mysqli_num_rows($result);
+  $run_items = mysqli_query($db, $get_items);
+  while($row_items = mysqli_fetch_array($run_items)) {
+    $product_qty = $row_items['qty'];
+    $count_items += $product_qty;
+  }
   echo $count_items;
 }
 
@@ -135,6 +139,7 @@ function getProducts()
       }
     }
   }
+  
   /// Categories Code Ends ///
   $per_page = 6;
   if (isset($_GET['page'])) {

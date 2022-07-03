@@ -96,7 +96,7 @@ include 'includes/header.php';
   </div>
 </div>
 <div id="content" class="container">
-  <div class="row">
+  <div class="row flex-wrap">
     <?php
     getPro();
     ?>

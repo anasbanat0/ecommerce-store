@@ -30,6 +30,9 @@
       <a class="nav-link <?php if (isset($_GET['change_pass'])) {
                             echo 'active';
                           } ?>" id="change_pass" data-toggle="pill" href="account.php?change_pass" role="tab" aria-selected="false"><i class="fas fa-user-lock"></i> Change Password</a>
+      <a class="nav-link <?php if (isset($_GET['my_wishlist'])) {
+                            echo 'active';
+                          } ?>" id="my_wishlist" data-toggle="pill" href="account.php?my_wishlist" role="tab" aria-selected="false"><i class="fas fa-heart"></i> My Wishlist</a>
       <a class="nav-link <?php if (isset($_GET['delete_account'])) {
                             echo 'active';
                           } ?>" id="delete_account" data-toggle="pill" href="account.php?delete_account" role="tab" aria-selected="false"><i class="fas fa-trash-alt"></i> Delete Account</a>

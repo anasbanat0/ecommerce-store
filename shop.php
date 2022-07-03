@@ -31,7 +31,7 @@ include_once 'includes/header.php';
             <p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using all.</p>
           </div>
         </div>
-        <div id="Products">
+        <div class="flex-wrap" id="Products">
           <?php getProducts(); ?>
         </div>
         <ul class="pagination justify-content-center">
@@ -39,7 +39,6 @@ include_once 'includes/header.php';
         </ul>
       </div>
       <div id="wait" style="position:absolute;top:20%;left:25%;padding:100px;padding-top:100px">
-
       </div>
     </div>
   </div>

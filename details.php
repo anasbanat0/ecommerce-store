@@ -146,8 +146,8 @@ if ($check_product == 0) {
                       <div class="form-group row">
                         <label for="" class="col-md-5 col-form-label">Product Quantity</label>
                         <div class="col-md-7">
-                          <select name="product_qty" class="form-control" id="">
-                            <option>Select quantity</option>
+                          <select name="product_qty" class="form-control">
+                            <option value="">Select quantity</option>
                             <option>1</option>
                             <option>2</option>
                             <option>3</option>
@@ -160,7 +160,7 @@ if ($check_product == 0) {
                         <label for="" class="col-md-5 col-form-label">Product Size</label>
                         <div class="col-md-7">
                           <select name="product_size" class="form-control">
-                            <option>Select a size</option>
+                            <option value="">Select a size</option>
                             <option>Small</option>
                             <option>Medium</option>
                             <option>Large</option>
@@ -240,6 +240,37 @@ if ($check_product == 0) {
                       <button class="btn btn-primary" type="submit" name="add_cart">
                         <i class="fa fa-shopping-cart"></i> Add to Cart
                       </button>
+                      <button class="btn btn-primary" type="submit" name="add_wishlist">
+                        <i class="fa fa-heart"></i> Add to Wishlist
+                      </button>
+                      <?php
+                      if (isset($_POST['add_wishlist'])) {
+                        if (!isset($_SESSION['customer_email'])) {
+                          echo "<script>alert('You must login to add product in wishlist')</script>";
+                          echo "<script>window.open('checkout.php','_self')</script>";
+                        } else {
+                          $customer_session = $_SESSION['customer_email'];
+                          $get_customer = "SELECT * FROM `customers` WHERE `customer_email`='$customer_session'";
+                          $run_customer = mysqli_query($conn, $get_customer);
+                          $row_customer = mysqli_fetch_array($run_customer);
+                          $customer_id = $row_customer['customer_id'];
+                          $select_wishlist = "SELECT * FROM `wishlist` WHERE `customer_id`='$customer_id' AND `product_id`='$pro_id'";
+                          $run_wishlist = mysqli_query($conn, $select_wishlist);
+                          $check_wishlist = mysqli_num_rows($run_wishlist);
+                          if ($check_wishlist == 1) {
+                            echo "<script>alert('This product has been already added in wishlist')</script>";
+                            echo "<script>window.open('$pro_url','_self')</script>";
+                          } else {
+                            $insert_wishlist = "INSERT INTO `wishlist` (`customer_id`,`product_id`) VALUES ('$customer_id','$pro_id')";
+                            $run_wishlist = mysqli_query($conn, $insert_wishlist);
+                            if ($run_wishlist) {
+                              echo "<script>alert('Product has been inserted into wishlist')</script>";
+                              echo "<script>window.open('$pro_url','_self')</script>";
+                            }
+                          }
+                        }
+                      }
+                      ?>
                     </p>
                   </form>
                 </div>

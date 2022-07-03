@@ -33,10 +33,12 @@ require 'includes/db.php';
 if (isset($_POST['admin_login'])) {
   $admin_email = mysqli_real_escape_string($conn, $_POST['admin_email']);
   $admin_pass = mysqli_real_escape_string($conn, $_POST['admin_pass']);
-  $get_admin = "SELECT * FROM `admins` WHERE admin_email='$admin_email' AND admin_pass='$admin_pass'";
+  $get_admin = "SELECT * FROM `admins` WHERE admin_email='$admin_email'";
   $run_admin = mysqli_query($conn, $get_admin);
-  $count = mysqli_num_rows($run_admin);
-  if ($count == 1) {
+  $row_admin = mysqli_fetch_array($run_admin);
+  $hash_password = $row_admin['admin_pass'];
+  $decrypted_password = password_verify($admin_pass, $hash_password);
+  if ($decrypted_password != 0) {
     $_SESSION['admin_email'] = $admin_email;
     echo "<script>alert('You have been logged in into admin panel')</script>";
     echo "<script>window.open('index.php?dashboard', '_self')</script>";

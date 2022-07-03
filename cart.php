@@ -30,7 +30,7 @@ include_once 'includes/header.php';
             $run_cart = mysqli_query($conn, $select_cart);
             $count = mysqli_num_rows($run_cart);
             ?>
-            <p class="text-muted">You currently have <?= $count ?> item(s) in your cart.</p>
+            <p class="text-muted">You currently have <?= items() ?> item(s) in your cart.</p>
             <div class="table-responsive">
               <table class="table">
                 <thead>

@@ -54,12 +54,7 @@ if (!isset($_SESSION['admin_email'])) {
                 <input type="email" name="admin_email" value="<?= $admin_email ?>" class="form-control" required>
               </div>
             </div>
-            <div class="form-group form-row">
-              <label class="col-form-label col-md-3 px-5 text-right">User Password</label>
-              <div class="col-md-6">
-                <input type="text" name="admin_pass" value="<?= $admin_pass ?>" class="form-control" required>
-              </div>
-            </div>
+
             <div class="form-group form-row">
               <label class="col-form-label col-md-3 px-5 text-right">User Country</label>
               <div class="col-md-6">
@@ -93,6 +88,20 @@ if (!isset($_SESSION['admin_email'])) {
                 <img src="admin_images/<?= $admin_image ?>" width="100" class="img-fluid mt-2" alt="<?= $admin_name ?>">
               </div>
             </div>
+            <hr>
+            <h3>Change Account Password <span class="text-muted h6">If You Do Not Want To Change Your Password Leave These Fields Empty. </span></h3>
+            <div class="form-group form-row">
+              <label class="col-form-label col-md-3 px-5 text-right">Change Password</label>
+              <div class="col-md-6">
+                <input type="text" name="admin_pass" class="form-control">
+              </div>
+            </div>
+            <div class="form-group form-row">
+              <label class="col-form-label col-md-3 px-5 text-right">Confirm Change Password</label>
+              <div class="col-md-6">
+                <input type="text" name="confirm_admin_pass" class="form-control">
+              </div>
+            </div>
             <div class="form-group form-row">
               <label class="col-md-3"></label>
               <div class="col-md-6">
@@ -108,7 +117,6 @@ if (!isset($_SESSION['admin_email'])) {
   if (isset($_POST['update'])) {
     $admin_name = $_POST['admin_name'];
     $admin_email = $_POST['admin_email'];
-    $admin_pass = $_POST['admin_pass'];
     $admin_country = $_POST['admin_country'];
     $admin_job = $_POST['admin_job'];
     $admin_contact = $_POST['admin_contact'];
@@ -119,7 +127,18 @@ if (!isset($_SESSION['admin_email'])) {
     if (empty($admin_image)) {
       $admin_image = $new_admin_image;
     }
-    $update_admin = "UPDATE `admins` SET `admin_name`='$admin_name',`admin_email`='$admin_email',`admin_pass`='$admin_pass',`admin_image`='$admin_image',`admin_contact`='$admin_contact',`admin_country`='$admin_country',`admin_job`='$admin_job',`admin_about`='$admin_about' WHERE `admin_id`= '$admin_id'";
+    $admin_pass = $_POST['admin_pass'];
+    $confirm_admin_pass = $_POST['confirm_admin_pass'];
+    if (!empty($admin_pass) || !empty($confirm_admin_pass)) {
+      if ($admin_pass !== $confirm_admin_pass) {
+        echo "<script>alert('Your password does not match, please try again.')</script>";
+      } else {
+        $encrypted_password = password_hash($admin_pass, PASSWORD_DEFAULT);
+        $update_admin_pass = "UPDATE `admins` SET `admin_pass`='$encrypted_password' WHERE `admin_id`='$admin_id'";
+        $run_update_admin_pass = mysqli_query($conn, $update_admin_pass);
+      }
+    }
+    $update_admin = "UPDATE `admins` SET `admin_name`='$admin_name',`admin_email`='$admin_email',`admin_image`='$admin_image',`admin_contact`='$admin_contact',`admin_country`='$admin_country',`admin_job`='$admin_job',`admin_about`='$admin_about' WHERE `admin_id`= '$admin_id'";
     $run_admin = mysqli_query($conn, $update_admin);
     if ($run_admin) {
       echo "<script>alert('User has been updated successfully and login again')</script>";

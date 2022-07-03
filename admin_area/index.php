@@ -164,6 +164,16 @@ if (!isset($_SESSION['admin_email'])) {
           include 'delete_enquiry.php';
         } elseif (isset($_GET['edit_enquiry'])) {
           include 'edit_enquiry.php';
+        } elseif (isset($_GET['edit_about_us'])) {
+          include 'edit_about_us.php';
+        } elseif (isset($_GET['insert_service'])) {
+          include 'insert_service.php';
+        } elseif (isset($_GET['view_services'])) {
+          include 'view_services.php';
+        } elseif (isset($_GET['delete_service'])) {
+          include 'delete_service.php';
+        } elseif (isset($_GET['edit_service'])) {
+          include 'edit_service.php';
         }
         ?>
       </div>

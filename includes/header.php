@@ -107,6 +107,12 @@ $activePage = basename($_SERVER['PHP_SELF'], ".php");
           <li class="nav-item <?= ($activePage == 'cart') ? 'active' : ''; ?>">
             <a class="nav-link" href="cart.php">Shopping Cart</a>
           </li>
+          <li class="nav-item <?= ($activePage == 'about') ? 'active' : ''; ?>">
+            <a class="nav-link" href="about.php">About Us</a>
+          </li>
+          <li class="nav-item <?= ($activePage == 'services') ? 'active' : ''; ?>">
+            <a class="nav-link" href="services.php">Services</a>
+          </li>
           <li class="nav-item <?= ($activePage == 'contact') ? 'active' : ''; ?>">
             <a class="nav-link" href="contact.php">Contact Us</a>
           </li>

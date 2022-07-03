@@ -82,6 +82,10 @@ if (!isset($_SESSION['customer_email'])) {
               include 'change_pass.php';
             } elseif (isset($_GET['delete_account'])) {
               include 'delete_account.php';
+            } elseif (isset($_GET['my_wishlist'])) {
+              include 'my_wishlist.php';
+            } elseif (isset($_GET['delete_wishlist'])) {
+              include 'delete_wishlist.php';
             }
             ?>
           </div>

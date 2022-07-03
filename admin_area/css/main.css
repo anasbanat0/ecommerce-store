@@ -7,6 +7,9 @@
 body {
   margin-top: 100px;
 }
+textarea {
+  resize: none;
+}
 #wrapper {
   padding-left: 0;
 }

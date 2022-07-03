@@ -11,9 +11,10 @@
   <script src="https://cdn.tiny.cloud/1/uy676ru9e2040docpmggweipgvsxkbtehmiqwwqc9yhi9fq7/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
   <script>
     tinymce.init({
-      selector: 'textarea',
+      selector: '#textarea',
       plugins: 'advlist autolink lists link image charmap preview anchor pagebreak media',
       toolbar_mode: 'floating',
+      height: 400,
     });
   </script>
   <link rel="stylesheet" href="css/main.css">

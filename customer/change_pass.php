@@ -27,9 +27,12 @@
     $old_pass = $_POST['old_pass'];
     $new_pass = $_POST['new_pass'];
     $new_pass_again = $_POST['new_pass_again'];
-    $set_old_pass = "select * from customers where customer_pass='$old_pass' AND customer_email='$c_email'";
+    $new_hash_password = password_hash($new_pass_again, PASSWORD_DEFAULT);
+    $set_old_pass = "SELECT * FROM `customers` WHERE `customer_email`='$c_email'";
     $run_old_pass = mysqli_query($conn, $set_old_pass);
-    $check_old_pass = mysqli_num_rows($run_old_pass);
+    $row_old_pass = mysqli_fetch_array($run_old_pass);
+    $hash_password = $row_old_pass['customer_pass'];
+    $check_old_pass = password_verify($old_pass, $hash_password);
     if ($check_old_pass == 0) {
       echo "<script>alert('Your current password is not valid try again')</script>";
       exit();
@@ -37,7 +40,7 @@
       echo "<script>alert('Your new password does not match')</script>";
       exit();
     }
-    $update_pass = "update customers set customer_pass='$new_pass' where customer_email='$c_email'";
+    $update_pass = "UPDATE `customers` SET `customer_pass`='$new_hash_password' WHERE `customer_email`='$c_email'";
     $run_pass = mysqli_query($conn, $update_pass);
     if ($run_pass) {
       echo "<script>alert('Your password has been changed successfully')</script>";
